@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/chat_page.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_navbar.dart';
 import 'package:flutter_application_1/src/modules/home_page.dart';
 
@@ -149,12 +150,12 @@ class _HistoryScreenState extends State<HistoryScreen> {
             case 1:
               // Already on HistoryScreen, do nothing
               break;
-            // case 2:
-            //   Navigator.pushReplacement(
-            //     context,
-            //     MaterialPageRoute(builder: (context) => const ChatScreen()),
-            //   );
-            //   break;
+            case 2:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const GroupChatScreen()),
+              );
+              break;
           }
         },
       ),

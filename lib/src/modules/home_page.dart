@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_navbar.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
+import 'package:flutter_application_1/src/modules/history.dart';
 import 'package:flutter_application_1/src/modules/pick_drop.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart'; // Assuming this is the correct path
@@ -187,7 +188,25 @@ class _HomeScreenState extends State<HomeScreen> {
       // Bottom Navigation Bar
       bottomNavigationBar: CustomBottomNavBar(
         currentIndex: _selectedIndex,
-        onTap: _onNavTapped,
+        onTap: (index) {
+          if (index == _selectedIndex) return;
+          setState(() => _selectedIndex = index);
+
+          switch (index) {
+            case 1:
+              Navigator.pushReplacement(
+                context,
+                MaterialPageRoute(builder: (context) => const HistoryScreen()),
+              );
+              break;
+            // case 2:
+            //   Navigator.pushReplacement(
+            //     context,
+            //     MaterialPageRoute(builder: (context) => const ChatScreen()),
+            //   );
+            //   break;
+          }
+        },
       ),
     );
   }

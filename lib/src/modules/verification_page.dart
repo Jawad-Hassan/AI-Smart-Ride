@@ -5,6 +5,7 @@ import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'package:flutter_application_1/src/modules/home_page.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
+import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_strings.dart';
 
 class VerificationScreen extends StatelessWidget {
@@ -22,7 +23,7 @@ class VerificationScreen extends StatelessWidget {
               AspectRatio(
                 aspectRatio: 800 / 230,
                 child: Image.asset(
-                  'assets/images/Background.png',
+                  AppImages.bg,
                   fit: BoxFit.cover,
                 ),
               ),

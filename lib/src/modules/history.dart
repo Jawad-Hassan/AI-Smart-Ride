@@ -32,7 +32,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             height: 200,
             decoration: const BoxDecoration(
               image: DecorationImage(
-                image: AssetImage("assets/images/bg.png"),
+                image: AssetImage("assets/images/top.png"),
                 fit: BoxFit.cover,
               ),
             ),
@@ -55,12 +55,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
                           fontWeight: FontWeight.bold,
                           color: Colors.white,
                         ),
-                      ),
-                      const Spacer(),
-                      CircleAvatar(
-                        radius: 18,
-                        backgroundColor: Colors.white,
-                        child: Icon(Icons.person, color: Colors.blue[900]),
                       ),
                     ],
                   ),
@@ -148,7 +142,6 @@ class _HistoryScreenState extends State<HistoryScreen> {
               );
               break;
             case 1:
-              // Already on HistoryScreen, do nothing
               break;
             case 2:
               Navigator.pushReplacement(

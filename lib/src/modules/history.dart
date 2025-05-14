@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/chat_page.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_navbar.dart';
-import 'package:flutter_application_1/src/modules/home_page.dart';
+
 
 class HistoryScreen extends StatefulWidget {
   const HistoryScreen({super.key});
@@ -138,7 +139,7 @@ class _HistoryScreenState extends State<HistoryScreen> {
             case 0:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => const HomePageView()),
               );
               break;
             case 1:

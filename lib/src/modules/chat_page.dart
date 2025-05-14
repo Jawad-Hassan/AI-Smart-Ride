@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_navbar.dart';
 import 'package:flutter_application_1/src/modules/history.dart';
-import 'package:flutter_application_1/src/modules/home_page.dart';
+
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 
@@ -26,7 +27,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
             case 0:
               Navigator.pushReplacement(
                 context,
-                MaterialPageRoute(builder: (context) => const HomeScreen()),
+                MaterialPageRoute(builder: (context) => const HomePageView()),
               );
               break;
             case 1:
@@ -43,36 +44,35 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Stack(
-  children: [
-    SizedBox(
-      width: double.infinity,
-      height: 200,
-      child: Image.asset(
-        AppImages.top,
-        fit: BoxFit.cover,
-      ),
-    ),
-    Positioned(
-      left: 16,
-      bottom: 150,
-      child: Text(
-        'Welcome to SmartRide',
-        style: StyleRefer.poppinsBold.copyWith(
-          fontSize: 22,
-          color: Colors.white,
-          shadows: [
-            const Shadow(
-              offset: Offset(0, 1),
-              blurRadius: 4,
-              color: Colors.black54,
+              children: [
+                SizedBox(
+                  width: double.infinity,
+                  height: 200,
+                  child: Image.asset(
+                    AppImages.top,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Positioned(
+                  left: 16,
+                  bottom: 150,
+                  child: Text(
+                    'Welcome to SmartRide',
+                    style: StyleRefer.poppinsBold.copyWith(
+                      fontSize: 22,
+                      color: Colors.white,
+                      shadows: [
+                        const Shadow(
+                          offset: Offset(0, 1),
+                          blurRadius: 4,
+                          color: Colors.black54,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ],
             ),
-          ],
-        ),
-      ),
-    ),
-  ],
-),
-
             const SizedBox(height: 20),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),

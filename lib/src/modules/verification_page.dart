@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
-import 'package:flutter_application_1/src/modules/home_page.dart';
+
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
@@ -76,9 +77,9 @@ class VerificationScreen extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) =>
-                                    const HomeScreen()),
-                          );;
+                                builder: (context) => const HomePageView()),
+                          );
+                          ;
                         },
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.primary,

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
+import 'package:flutter_application_1/src/modules/login_page/login_view.dart';
+import 'package:flutter_application_1/src/modules/signup_page/sign_view.dart';
+import 'package:flutter_application_1/src/modules/verification_page/verification_view.dart';
+import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/Welcome_Page.dart';
-
+// <-- import if you have this
 
 void main() {
   runApp(const MyApp());
@@ -9,18 +14,25 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      debugShowCheckedModeBanner:false ,
+    return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: WelcomePage(),
+      home: const WelcomePage(),
+
+      // 👇 Add named routes here
+      getPages: [
+        GetPage(name: '/login', page: () => const LoginView()),
+        GetPage(name: '/signup', page: () => const SignView()), // if implemented
+        GetPage(name: '/verification', page: () => const VerificationView()),
+        GetPage(name: '/home', page: () => const HomePageView()), // <-- Add this line
+
+      ],
     );
   }
 }
-

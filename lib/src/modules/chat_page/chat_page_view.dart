@@ -1,44 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
-import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_navbar.dart';
-import 'package:flutter_application_1/src/modules/history.dart';
+import 'package:flutter_application_1/src/modules/chat_page/chat_page_logic.dart';
+import 'package:get/get.dart';
 
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 
-class GroupChatScreen extends StatefulWidget {
+class GroupChatScreen extends StatelessWidget {
   const GroupChatScreen({super.key});
 
   @override
-  State<GroupChatScreen> createState() => _GroupChatScreenState();
-}
-
-class _GroupChatScreenState extends State<GroupChatScreen> {
-  int _currentIndex = 2;
-
-  @override
   Widget build(BuildContext context) {
+    final controller = Get.put(ChatPageLogic());
+
     return Scaffold(
-      bottomNavigationBar: CustomBottomNavBar(
-        currentIndex: _currentIndex,
-        onTap: (index) {
-          if (index == _currentIndex) return;
-          switch (index) {
-            case 0:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HomePageView()),
-              );
-              break;
-            case 1:
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const HistoryScreen()),
-              );
-              break;
-          }
-        },
-      ),
+      // bottomNavigationBar: CustomBottomNavBar(
+      //   currentIndex: controller.currentIndex,
+      //   onTap: (index) => controller.onNavTapped(index, context),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -61,8 +39,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
                     style: StyleRefer.poppinsBold.copyWith(
                       fontSize: 22,
                       color: Colors.white,
-                      shadows: [
-                        const Shadow(
+                      shadows: const [
+                        Shadow(
                           offset: Offset(0, 1),
                           blurRadius: 4,
                           color: Colors.black54,
@@ -78,7 +56,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Your groups',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 10),
@@ -96,7 +75,8 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Text(
                 'Recommendations',
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                style:
+                    const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               ),
             ),
             const SizedBox(height: 10),
@@ -154,7 +134,7 @@ class _GroupChatScreenState extends State<GroupChatScreen> {
             style: const TextStyle(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 10),
+          const SizedBox(height: 5),
           ElevatedButton(
             onPressed: () {
               // Join group logic

@@ -12,6 +12,7 @@ class Textfield extends StatelessWidget {
   final TextInputType inputType;
   final List<TextInputFormatter>? inputFormatters;
   final int? maxLength;
+  final String? Function(String?)? validator; // <-- Add this
 
   const Textfield({
     super.key,
@@ -22,6 +23,7 @@ class Textfield extends StatelessWidget {
     this.inputType = TextInputType.text,
     this.inputFormatters,
     this.maxLength,
+    this.validator, // <-- Add this
   });
 
   @override
@@ -32,6 +34,7 @@ class Textfield extends StatelessWidget {
       keyboardType: inputType,
       inputFormatters: inputFormatters,
       maxLength: maxLength,
+      validator: validator, // <-- Pass it here
       style: StyleRefer.poppinsRegular.copyWith(
         color: AppColorss.text,
         fontSize: 14,
@@ -52,7 +55,7 @@ class Textfield extends StatelessWidget {
           borderSide: BorderSide(color: AppColorss.inputBorder),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        counterText: "", // Hides the counter if you don’t want it displayed
+        counterText: "",
       ),
     );
   }

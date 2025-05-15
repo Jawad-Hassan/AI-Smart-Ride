@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
-import 'package:flutter_application_1/src/modules/login_page.dart';
-import 'package:flutter_application_1/src/modules/signup_page.dart';
+
+import 'package:flutter_application_1/src/modules/login_page/login_view.dart';
+
+import 'package:flutter_application_1/src/modules/signup_page/sign_view.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 
@@ -52,8 +54,7 @@ class WelcomePage extends StatelessWidget {
                         // Navigate to the LoginScreen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => LoginScreen()),
+                          MaterialPageRoute(builder: (context) => LoginView()),
                         );
                       },
                       backgroundColor: Colors.blue,
@@ -71,8 +72,7 @@ class WelcomePage extends StatelessWidget {
                       onPressed: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(
-                              builder: (context) => SignUpScreen()),
+                          MaterialPageRoute(builder: (context) => SignView()),
                         );
                       },
                       backgroundColor: Colors.white,

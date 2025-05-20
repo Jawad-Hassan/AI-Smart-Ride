@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/History_screen/history_view.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_logic.dart';
+import 'package:flutter_application_1/src/modules/carpooling_pick_drop/carpooling_pick_drop_view.dart';
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_view.dart';
 import 'package:flutter_application_1/src/modules/pick_drop/pick_drop_view.dart';
 import 'package:get/get.dart';
@@ -131,32 +132,39 @@ class HomePageView extends StatelessWidget {
   }
 
   Widget _buildServiceButton(String label, Color color, BuildContext context) {
-    return Column(
-      children: [
-        SizedBox(
-          width: 80,
-          height: 80,
-          child: CustomButton(
-            text: '',
-            onPressed: () {
+  return Column(
+    children: [
+      SizedBox(
+        width: 80,
+        height: 80,
+        child: CustomButton(
+          text: '',
+          onPressed: () {
+            if (label == 'Carpooling') {
+              Navigator.push(
+                context,
+                MaterialPageRoute(builder: (context) => const CarpoolingPickDropView()),
+              );
+            } else {
               Navigator.push(
                 context,
                 MaterialPageRoute(builder: (context) => const PickDropView()),
               );
-            },
-            backgroundColor: color,
-            borderRadius: 12,
-          ),
+            }
+          },
+          backgroundColor: color,
+          borderRadius: 12,
         ),
-        const SizedBox(height: 8),
-        Text(
-          label,
-          textAlign: TextAlign.center,
-          style: StyleRefer.poppinsRegular.copyWith(fontSize: 14),
-        ),
-      ],
-    );
-  }
+      ),
+      const SizedBox(height: 8),
+      Text(
+        label,
+        textAlign: TextAlign.center,
+        style: StyleRefer.poppinsRegular.copyWith(fontSize: 14),
+      ),
+    ],
+  );
+}
 
   Widget _buildRecommendationCard(String title) {
     return Container(

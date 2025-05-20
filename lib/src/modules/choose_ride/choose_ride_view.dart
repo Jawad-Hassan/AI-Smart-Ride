@@ -19,7 +19,15 @@ ChooseRideView({super.key, this.fare = "Rs. 0"});
 @override
 Widget build(BuildContext context) {
   final screenHeight = MediaQuery.of(context).size.height;
-  final bottomContainerHeight = screenHeight * 0.4; // 40% of screen height
+  final screenWidth = MediaQuery.of(context).size.width;
+
+  // Set bottom container height as 40-55% of screen height (adjustable)
+  final bottomContainerHeight = screenHeight * 0.5;
+
+  // Set button width as ~30% of screen width, capped with min/max
+  double buttonWidth = screenWidth * 0.3;
+  if (buttonWidth < 60) buttonWidth = 60;
+  if (buttonWidth > 100) buttonWidth = 100;
 
   return Scaffold(
     body: Stack(
@@ -27,7 +35,7 @@ Widget build(BuildContext context) {
         FlutterMap(
           options: MapOptions(center: pickupLocation, zoom: 13.0),
           children: [
-            // ... your map layers ...
+            // your map layers ...
           ],
         ),
         Align(
@@ -37,8 +45,7 @@ Widget build(BuildContext context) {
             padding: const EdgeInsets.all(16),
             decoration: BoxDecoration(
               color: Colors.white,
-              borderRadius:
-                  const BorderRadius.vertical(top: Radius.circular(24)),
+              borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
               boxShadow: [BoxShadow(color: Colors.black12, blurRadius: 10)],
             ),
             child: Obx(() {
@@ -47,12 +54,11 @@ Widget build(BuildContext context) {
                 children: [
                   const Text(
                     "Choose a ride",
-                    style:
-                        TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 10),
 
-                  // Instead of Expanded here, use Flexible so it adapts well
+                  // Flexible lets the list take available space dynamically
                   Flexible(
                     child: controller.isLoading.value
                         ? const Center(child: CircularProgressIndicator())
@@ -64,11 +70,9 @@ Widget build(BuildContext context) {
                                   final offer = controller.rideOffers[index];
                                   return Card(
                                     elevation: 2,
-                                    margin:
-                                        const EdgeInsets.symmetric(vertical: 8),
+                                    margin: const EdgeInsets.symmetric(vertical: 8),
                                     shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(12)),
+                                        borderRadius: BorderRadius.circular(12)),
                                     child: ListTile(
                                       contentPadding: const EdgeInsets.all(12),
                                       leading: const CircleAvatar(
@@ -78,31 +82,24 @@ Widget build(BuildContext context) {
                                       ),
                                       title: Text(
                                         "${offer['name']} (⭐ ${offer['rating']})",
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold),
+                                        style: const TextStyle(fontWeight: FontWeight.bold),
                                       ),
                                       subtitle: Text(offer['car']),
                                       trailing: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                        mainAxisAlignment: MainAxisAlignment.center,
                                         children: [
                                           Text("PKR ${offer['price']}",
-                                              style: const TextStyle(
-                                                  fontWeight:
-                                                      FontWeight.bold)),
+                                              style: const TextStyle(fontWeight: FontWeight.bold)),
                                           const SizedBox(height: 8),
                                           Row(
                                             mainAxisSize: MainAxisSize.min,
                                             children: [
                                               CustomButton(
                                                 text: "Decline",
-                                                onPressed:
-                                                    controller.declineRide,
-                                                backgroundColor:
-                                                    Colors.red.shade100,
-                                                textColor:
-                                                    Colors.red.shade800,
-                                                width: 100,
+                                                onPressed: controller.declineRide,
+                                                backgroundColor: Colors.red.shade100,
+                                                textColor: Colors.red.shade800,
+                                                width: buttonWidth,
                                                 height: 20,
                                                 fontSize: 12,
                                               ),
@@ -110,13 +107,10 @@ Widget build(BuildContext context) {
                                               CustomButton(
                                                 text: "Accept",
                                                 onPressed: () =>
-                                                    controller.acceptRide(
-                                                        offer['name']),
-                                                backgroundColor:
-                                                    Colors.green.shade100,
-                                                textColor:
-                                                    Colors.green.shade800,
-                                                width: 100,
+                                                    controller.acceptRide(offer['name']),
+                                                backgroundColor: Colors.green.shade100,
+                                                textColor: Colors.green.shade800,
+                                                width: buttonWidth,
                                                 height: 20,
                                                 fontSize: 12,
                                               ),
@@ -138,7 +132,7 @@ Widget build(BuildContext context) {
                         children: [
                           Icon(Icons.credit_card, size: 18),
                           SizedBox(width: 5),
-                          Text(fare, style: TextStyle(fontSize: 15)),
+                          Text(fare, style: const TextStyle(fontSize: 15)),
                         ],
                       ),
                       CustomButton(
@@ -146,7 +140,7 @@ Widget build(BuildContext context) {
                         onPressed: () {
                           Get.to(() => const PickDropView());
                         },
-                        width: 200,
+                        width: screenWidth * 0.5, // 50% width of screen
                         height: 40,
                         fontSize: 14,
                       ),
@@ -161,5 +155,6 @@ Widget build(BuildContext context) {
     ),
   );
 }
+
 
 }

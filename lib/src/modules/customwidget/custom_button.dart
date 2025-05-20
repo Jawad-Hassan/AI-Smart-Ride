@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 
-
 class CustomButton extends StatelessWidget {
-  final String text;
+  final String? text;
+  final Widget? child;
   final VoidCallback onPressed;
   final double width;
   final double height;
@@ -16,7 +16,8 @@ class CustomButton extends StatelessWidget {
 
   const CustomButton({
     super.key,
-    required this.text,
+    this.text,
+    this.child,
     required this.onPressed,
     this.width = double.infinity,
     this.height = 50,
@@ -30,6 +31,16 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final content = child ??
+        Text(
+          text ?? '',
+          style: StyleRefer.poppinsSemiBold.copyWith(
+            fontSize: fontSize,
+            fontWeight: fontWeight,
+            color: textColor,
+          ),
+        );
+
     return SizedBox(
       width: width,
       height: height,
@@ -44,14 +55,7 @@ class CustomButton extends StatelessWidget {
           elevation: 2,
         ),
         onPressed: onPressed,
-        child: Text(
-          text,
-          style: StyleRefer.poppinsSemiBold.copyWith(
-            fontSize: fontSize,
-            fontWeight: fontWeight,
-            color: textColor,
-          ),
-        ),
+        child: content,
       ),
     );
   }

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
-import 'package:flutter_application_1/src/modules/choose_ride/choose_ride_view.dart';
+
 import 'package:flutter_application_1/src/modules/login_page/login_view.dart';
 import 'package:flutter_application_1/src/modules/signup_page/sign_view.dart';
 import 'package:flutter_application_1/src/modules/verification_page/verification_view.dart';

@@ -32,8 +32,8 @@ class GroupChatScreen extends StatelessWidget {
                   ),
                 ),
                 Positioned(
-                  left: 16,
-                  bottom: 150,
+                left: 60,
+                bottom: 145,
                   child: Text(
                     'Welcome to SmartRide',
                     style: StyleRefer.poppinsBold.copyWith(

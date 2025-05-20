@@ -6,15 +6,14 @@ import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/pick_drop/pick_drop_view.dart';
 
-
 class ChooseRideView extends StatelessWidget {
   final ChooseRideController controller = Get.put(ChooseRideController());
-  
+
   final LatLng pickupLocation = LatLng(24.8607, 67.0011);
   final LatLng dropoffLocation = LatLng(24.8650, 67.0600);
-  final String fare; // ✅ Add this
-ChooseRideView({super.key, this.fare = "Rs. 0"}); 
+  final String fare;
 
+  ChooseRideView({super.key, this.fare = "Rs. 0"});
 
   @override
   Widget build(BuildContext context) {
@@ -94,30 +93,28 @@ ChooseRideView({super.key, this.fare = "Rs. 0"});
                                       shape: RoundedRectangleBorder(
                                           borderRadius:
                                               BorderRadius.circular(12)),
-                                      child: ListTile(
-                                        contentPadding: const EdgeInsets.all(12),
-                                        leading: const CircleAvatar(
-                                          radius: 24,
-                                          backgroundImage: NetworkImage(
-                                              'https://via.placeholder.com/150'),
-                                        ),
-                                        title: Text(
-                                          "${offer['name']} (⭐ ${offer['rating']})",
-                                          style: const TextStyle(
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                        subtitle: Text(offer['car']),
-                                        trailing: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.center,
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(12.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
                                           children: [
-                                            Text("PKR ${offer['price']}",
-                                                style: const TextStyle(
-                                                    fontWeight:
-                                                        FontWeight.bold)),
-                                            const SizedBox(height: 8),
+                                            Text(
+                                              offer['name'],
+                                              style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                            const SizedBox(height: 4),
+                                            Text("⭐ ${offer['rating']}"),
+                                            const SizedBox(height: 4),
+                                            Text(offer['car']),
+                                            const SizedBox(height: 4),
+                                            Text("PKR ${offer['price']}"),
+                                            const SizedBox(height: 10),
                                             Row(
-                                              mainAxisSize: MainAxisSize.min,
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.end,
                                               children: [
                                                 CustomButton(
                                                   text: "Decline",
@@ -128,7 +125,7 @@ ChooseRideView({super.key, this.fare = "Rs. 0"});
                                                   textColor:
                                                       Colors.red.shade800,
                                                   width: 100,
-                                                  height: 20,
+                                                  height: 30,
                                                   fontSize: 12,
                                                 ),
                                                 const SizedBox(width: 8),
@@ -142,11 +139,11 @@ ChooseRideView({super.key, this.fare = "Rs. 0"});
                                                   textColor:
                                                       Colors.green.shade800,
                                                   width: 100,
-                                                  height: 20,
+                                                  height: 30,
                                                   fontSize: 12,
                                                 ),
                                               ],
-                                            ),
+                                            )
                                           ],
                                         ),
                                       ),
@@ -159,12 +156,12 @@ ChooseRideView({super.key, this.fare = "Rs. 0"});
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         Row(
-  children: [
-    Icon(Icons.credit_card, size: 18),
-    SizedBox(width: 5),
-    Text(fare, style: TextStyle(fontSize: 15)), // Use dynamic fare here
-  ],
-),
+                          children: [
+                            const Icon(Icons.credit_card, size: 18),
+                            const SizedBox(width: 5),
+                            Text(fare, style: const TextStyle(fontSize: 15)),
+                          ],
+                        ),
                         CustomButton(
                           text: "Stop Search",
                           onPressed: () {

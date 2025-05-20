@@ -3,6 +3,10 @@ import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'pick_drop_logic.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
+
+
+
 
 class PickDropView extends StatelessWidget {
   const PickDropView({super.key});
@@ -39,7 +43,10 @@ class PickDropView extends StatelessWidget {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               GestureDetector(
-                                onTap: () => Navigator.pop(context),
+                                onTap: () {
+  Get.offAll(() => const HomePageView());
+},
+
                                 child: const Icon(Icons.arrow_back,
                                     color: Colors.white),
                               ),

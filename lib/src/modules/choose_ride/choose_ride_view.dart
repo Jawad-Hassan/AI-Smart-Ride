@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/choose_ride/choose_ride_logic.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
@@ -165,7 +166,7 @@ class ChooseRideView extends StatelessWidget {
                         CustomButton(
                           text: "Stop Search",
                           onPressed: () {
-                            Get.to(() => const PickDropView());
+                            Get.to(() => const HomePageView());
                           },
                           width: 200,
                           height: 40,

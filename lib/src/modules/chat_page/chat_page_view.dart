@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_logic.dart';
+import 'package:flutter_application_1/src/modules/chatting_screen/chatting_screen_view.dart';
+import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
@@ -37,7 +39,7 @@ class GroupChatScreen extends StatelessWidget {
                     children: [
                       Text(
                         'SmartRide',
-                        style:StyleRefer.poppinsBold.copyWith(
+                        style: StyleRefer.poppinsBold.copyWith(
                           fontSize: 22,
                           color: Colors.white,
                           shadows: const [
@@ -66,10 +68,33 @@ class GroupChatScreen extends StatelessWidget {
             const SizedBox(height: 10),
             Center(
               child: Column(
-                children: const [
-                  Icon(Icons.group, size: 60, color: Colors.blue),
-                  SizedBox(height: 5),
-                  Text('HIMALAYA TRIP', style: TextStyle(fontSize: 16)),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    height: 36,
+                    child: CustomButton(
+                      text: 'Himalayas Trip',
+                      onPressed: () {
+                        // Add your button action here
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => ChattingScreenView()),
+                        );
+                      },
+                      backgroundColor: Colors.white,
+                      textColor: Colors.blue.shade800,
+                      fontSize: 14,
+                      fontWeight: FontWeight.w600,
+                      borderRadius: 20,
+                      width: 150,
+                      height: 36,
+                    ),
+                  ),
+                  const SizedBox(height: 6),
+                  const Text('59 members',
+                      style: TextStyle(color: Colors.white70, fontSize: 14)),
                 ],
               ),
             ),

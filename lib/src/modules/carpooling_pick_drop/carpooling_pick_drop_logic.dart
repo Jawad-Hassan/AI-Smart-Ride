@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/choose_ride/choose_ride_view.dart';
 import 'package:get/get.dart';
 
 class PickDropcontroller extends GetxController {
@@ -39,25 +40,27 @@ class PickDropcontroller extends GetxController {
   }
 
   void handleSearch() {
-    if (formKey.currentState!.validate()) {
-      final pickup = pickupController.text;
-      final dropoff = dropoffController.text;
-      final fare = fareController.text;
-      final passengers = passengerController.text;
-      final date = dateController.text;
-      final time = timeController.text;
+  if (formKey.currentState!.validate()) {
+    final pickup = pickupController.text;
+    final dropoff = dropoffController.text;
+    final fare = fareController.text;
+    final passengers = passengerController.text;
+    final date = dateController.text;
+    final time = timeController.text;
 
-      print("Pickup: $pickup");
-      print("Dropoff: $dropoff");
-      print("Fare: $fare");
-      print("Passengers: $passengers");
-      print("Date: $date");
-      print("Time: $time");
-      print("AutoAccept: $autoAccept");
-    } else {
-      print("Form not valid");
-    }
+    print("Pickup: $pickup");
+    print("Dropoff: $dropoff");
+    print("Fare: $fare");
+    print("Passengers: $passengers");
+    print("Date: $date");
+    print("Time: $time");
+    print("AutoAccept: $autoAccept");
+
+    Get.to(() =>ChooseRideView()); // <-- Navigate here
+  } else {
+    print("Form not valid");
   }
+}
 
   @override
   void onClose() {

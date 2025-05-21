@@ -1,4 +1,6 @@
+import 'dart:io'; // for exit(0)
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart'; // for SystemNavigator.pop()
 import 'package:flutter_application_1/src/modules/History_screen/history_view.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_logic.dart';
 import 'package:flutter_application_1/src/modules/carpooling_pick_drop/carpooling_pick_drop_view.dart';
@@ -20,26 +22,37 @@ class HomePageView extends StatelessWidget {
     return GetBuilder<HomePageController>(
       init: HomePageController(),
       builder: (controller) {
-        return Scaffold(
-          drawer: _buildDrawer(controller),
-          body: SafeArea(
-            child: Obx(() {
-              switch (controller.selectedIndex.value) {
-                case 0:
-                  return _buildHomeContent(context);
-                case 1:
-                  return HistoryView();
-                case 2:
-                  return const GroupChatScreen();
-                default:
-                  return _buildHomeContent(context);
-              }
-            }),
+        return WillPopScope(
+          onWillPop: () async {
+            // Exit the app
+            if (Platform.isAndroid) {
+              SystemNavigator.pop(); // Closes the app on Android
+            } else {
+              exit(0); // Fallback for other platforms
+            }
+            return false;
+          },
+          child: Scaffold(
+            drawer: _buildDrawer(controller),
+            body: SafeArea(
+              child: Obx(() {
+                switch (controller.selectedIndex.value) {
+                  case 0:
+                    return _buildHomeContent(context);
+                  case 1:
+                    return HistoryView();
+                  case 2:
+                    return const GroupChatScreen();
+                  default:
+                    return _buildHomeContent(context);
+                }
+              }),
+            ),
+            bottomNavigationBar: Obx(() => CustomBottomNavBar(
+                  currentIndex: controller.selectedIndex.value,
+                  onTap: controller.onNavTapped,
+                )),
           ),
-          bottomNavigationBar: Obx(() => CustomBottomNavBar(
-                currentIndex: controller.selectedIndex.value,
-                onTap: controller.onNavTapped,
-              )),
         );
       },
     );

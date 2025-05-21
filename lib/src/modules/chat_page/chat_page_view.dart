@@ -31,22 +31,25 @@ class GroupChatScreen extends StatelessWidget {
                     fit: BoxFit.cover,
                   ),
                 ),
-                Positioned(
-                left: 60,
-                bottom: 145,
-                  child: Text(
-                    'Welcome to SmartRide',
-                    style: StyleRefer.poppinsBold.copyWith(
-                      fontSize: 22,
-                      color: Colors.white,
-                      shadows: const [
-                        Shadow(
-                          offset: Offset(0, 1),
-                          blurRadius: 4,
-                          color: Colors.black54,
+                Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  child: Row(
+                    children: [
+                      Text(
+                        'SmartRide',
+                        style:StyleRefer.poppinsBold.copyWith(
+                          fontSize: 22,
+                          color: Colors.white,
+                          shadows: const [
+                            Shadow(
+                              offset: Offset(0, 1),
+                              blurRadius: 4,
+                              color: Colors.black54,
+                            ),
+                          ],
                         ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
                 ),
               ],
@@ -98,6 +101,10 @@ class GroupChatScreen extends StatelessWidget {
                 onPressed: () {
                   // Navigate to Create Group screen
                 },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: Colors.blue,
+                  foregroundColor: Colors.white,
+                ),
                 child: const Text('Create Group'),
               ),
             ),

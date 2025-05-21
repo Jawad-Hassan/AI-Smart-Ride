@@ -7,13 +7,23 @@ import 'package:flutter_application_1/src/modules/customwidget/custom_button.dar
 import 'package:flutter_application_1/src/modules/pick_drop/pick_drop_view.dart';
 
 class ChooseRideView extends StatelessWidget {
-  final ChooseRideController controller = Get.put(ChooseRideController());
-
-  final LatLng pickupLocation = LatLng(24.8607, 67.0011);
-  final LatLng dropoffLocation = LatLng(24.8650, 67.0600);
+  final LatLng pickupLocation;
+  final LatLng dropoffLocation;
+  final String pickupAddress;
+  final String dropoffAddress;
   final String fare;
 
-  ChooseRideView({super.key, this.fare = "Rs. 0"});
+  final ChooseRideController controller = Get.put(ChooseRideController());
+
+  ChooseRideView({
+    super.key,
+    required this.pickupLocation,
+    required this.dropoffLocation,
+    required this.pickupAddress,
+    required this.dropoffAddress,
+    this.fare = "Rs. 0",
+  });
+
 
   @override
   Widget build(BuildContext context) {
@@ -130,18 +140,22 @@ class ChooseRideView extends StatelessWidget {
                                                 ),
                                                 const SizedBox(width: 8),
                                                 CustomButton(
-                                                  text: "Accept",
-                                                  onPressed: () =>
-                                                      controller.acceptRide(
-                                                          offer['name']),
-                                                  backgroundColor:
-                                                      Colors.green.shade100,
-                                                  textColor:
-                                                      Colors.green.shade800,
-                                                  width: 100,
-                                                  height: 30,
-                                                  fontSize: 12,
-                                                ),
+  text: "Accept",
+  onPressed: () => controller.acceptRide(
+  offer,
+  pickupLocation,
+  dropoffLocation,
+  pickupAddress,
+  dropoffAddress,
+),
+
+  backgroundColor: Colors.green.shade100,
+  textColor: Colors.green.shade800,
+  width: 100,
+  height: 30,
+  fontSize: 12,
+),
+
                                               ],
                                             )
                                           ],

@@ -1,4 +1,7 @@
+import 'package:flutter_application_1/src/modules/order_info/order_info_logic.dart';
+import 'package:flutter_application_1/src/modules/order_info/order_info_view.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 class ChooseRideController extends GetxController {
   var isLoading = true.obs;
@@ -39,11 +42,33 @@ class ChooseRideController extends GetxController {
     isLoading.value = false;
   }
 
-  void acceptRide(String driverName) {
-    Get.snackbar("Ride Accepted", "You accepted a ride from $driverName");
+void acceptRide(
+  Map<String, dynamic> offer,
+  LatLng pickupLocation,
+  LatLng dropoffLocation,
+  String pickupAddress,
+  String dropoffAddress,
+) {
+  if (!Get.isRegistered<DriverTrackingController>()) {
+    Get.put(DriverTrackingController());
   }
+
+  Get.to(() => DriverTrackingView(
+    driverInfo: offer,
+    pickupLocation: pickupLocation,
+    dropoffLocation: dropoffLocation,
+    pickupAddress: pickupAddress,
+    dropoffAddress: dropoffAddress,
+  ));
+}
+
+
+
+
 
   void declineRide() {
     Get.snackbar("Ride Declined", "You declined the ride offer.");
   }
 }
+
+

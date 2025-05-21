@@ -5,7 +5,7 @@ import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
-import 'package:flutter_application_1/src/modules/pick_drop/pick_drop_view.dart';
+
 
 class ChooseRideView extends StatelessWidget {
   final ChooseRideController controller = Get.put(ChooseRideController());

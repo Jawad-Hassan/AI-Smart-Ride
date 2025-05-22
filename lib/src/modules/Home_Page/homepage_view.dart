@@ -116,15 +116,20 @@ class HomePageView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               children: [
-                _buildServiceButton('Mini Ride', Colors.white, context),
+                _buildServiceButton(
+                    'Mini Ride', Icons.local_taxi, Colors.white, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Ride AC', Colors.yellow, context),
+                _buildServiceButton(
+                    'Ride AC', Icons.ac_unit, Colors.yellow, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Bike', Colors.red, context),
+                _buildServiceButton(
+                    'Bike', Icons.pedal_bike, Colors.red, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Rickshaw', Colors.blue, context),
+                _buildServiceButton(
+                    'Rickshaw', Icons.electric_rickshaw, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Carpooling', Colors.pink, context),
+                _buildServiceButton(
+                    'Carpooling', Icons.group, Colors.pink, context),
               ],
             ),
           ),
@@ -173,7 +178,8 @@ class HomePageView extends StatelessWidget {
     );
   }
 
-  Widget _buildServiceButton(String label, Color color, BuildContext context) {
+  Widget _buildServiceButton(
+      String label, IconData icon, Color color, BuildContext context) {
     return Column(
       children: [
         SizedBox(
@@ -197,6 +203,7 @@ class HomePageView extends StatelessWidget {
             },
             backgroundColor: color,
             borderRadius: 12,
+            child: Icon(icon, color: Colors.white, size: 32),
           ),
         ),
         const SizedBox(height: 8),

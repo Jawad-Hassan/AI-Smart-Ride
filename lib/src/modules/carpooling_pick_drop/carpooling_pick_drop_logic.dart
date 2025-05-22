@@ -56,7 +56,7 @@ class PickDropcontroller extends GetxController {
     print("Time: $time");
     print("AutoAccept: $autoAccept");
 
-    Get.to(() =>ChooseRideView()); // <-- Navigate here
+    Get.to(() =>ChooseRideView(pickupLocation: pi , dropoffLocation: dropoffLocation, pickupAddress: pickupAddress, dropoffAddress: dropoffAddress)); // <-- Navigate here
   } else {
     print("Form not valid");
   }

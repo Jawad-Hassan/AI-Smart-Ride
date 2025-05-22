@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/choose_ride/choose_ride_view.dart';
+import 'package:flutter_application_1/src/modules/choose_ride_carpooling/choose_ride_carpooling_view.dart';
 import 'package:get/get.dart';
+import 'package:latlong2/latlong.dart';
 
 class PickDropcontroller extends GetxController {
   final TextEditingController pickupController = TextEditingController();
@@ -11,6 +12,9 @@ class PickDropcontroller extends GetxController {
   final TextEditingController timeController = TextEditingController();
 
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
+  LatLng? pickupLatLng;
+  LatLng? dropoffLatLng;
 
   bool autoAccept = false;
 
@@ -32,35 +36,44 @@ class PickDropcontroller extends GetxController {
   }
 
   Future<void> pickTime(BuildContext context) async {
-    final TimeOfDay? picked =
-        await showTimePicker(context: context, initialTime: TimeOfDay.now());
+    final TimeOfDay? picked = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.now(),
+    );
     if (picked != null) {
       timeController.text = picked.format(context);
     }
   }
 
-  void handleSearch() {
+void handleSearch() {
   if (formKey.currentState!.validate()) {
-    final pickup = pickupController.text;
-    final dropoff = dropoffController.text;
+    final pickupAddress = pickupController.text;
+    final dropoffAddress = dropoffController.text;
     final fare = fareController.text;
     final passengers = passengerController.text;
     final date = dateController.text;
     final time = timeController.text;
 
-    print("Pickup: $pickup");
-    print("Dropoff: $dropoff");
-    print("Fare: $fare");
-    print("Passengers: $passengers");
-    print("Date: $date");
-    print("Time: $time");
-    print("AutoAccept: $autoAccept");
+    pickupLatLng ??= const LatLng(33.6844, 73.0479); // Example fallback
+    dropoffLatLng ??= const LatLng(24.8607, 67.0011); // Example fallback
 
-    Get.to(() =>ChooseRideView(pickupLocation: pi , dropoffLocation: dropoffLocation, pickupAddress: pickupAddress, dropoffAddress: dropoffAddress)); // <-- Navigate here
+    if (pickupLatLng == null || dropoffLatLng == null) {
+      print("Missing pickup/dropoff coordinates");
+      return;
+    }
+
+    Get.to(() => ChooseRideCarpoolingView(
+          pickupLocation: pickupLatLng!,
+          dropoffLocation: dropoffLatLng!,
+          pickupAddress: pickupAddress,
+          dropoffAddress: dropoffAddress,
+          fare: "Rs. $fare", // ✅ Pass the fare here
+        ));
   } else {
     print("Form not valid");
   }
 }
+
 
   @override
   void onClose() {

@@ -117,19 +117,19 @@ class HomePageView extends StatelessWidget {
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               children: [
                 _buildServiceButton(
-                    'Mini Ride', Icons.local_taxi, Colors.white, context),
+                    'MiniCar', Icons.local_taxi,Colors.blue,context),
                 const SizedBox(width: 12),
                 _buildServiceButton(
-                    'Ride AC', Icons.ac_unit, Colors.yellow, context),
+                    'CarAC', Icons.ac_unit, Colors.blue, context),
                 const SizedBox(width: 12),
                 _buildServiceButton(
-                    'Bike', Icons.pedal_bike, Colors.red, context),
+                    'Bike', Icons.pedal_bike, Colors.blue, context),
                 const SizedBox(width: 12),
                 _buildServiceButton(
                     'Rickshaw', Icons.electric_rickshaw, Colors.blue, context),
                 const SizedBox(width: 12),
                 _buildServiceButton(
-                    'Carpooling', Icons.group, Colors.pink, context),
+                    'Carpooling', Icons.group, Colors.blue, context),
               ],
             ),
           ),
@@ -157,22 +157,7 @@ class HomePageView extends StatelessWidget {
             ),
           ),
 
-          // 👉 "Your groups" Section
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 24),
-                Text(
-                  'Your groups',
-                  style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
-                ),
-                const SizedBox(height: 12),
-                buildGroupButton('Himalayas\nTrip'),
-              ],
-            ),
-          ),
+
         ],
       ),
     );
@@ -203,7 +188,7 @@ class HomePageView extends StatelessWidget {
             },
             backgroundColor: color,
             borderRadius: 12,
-            child: Icon(icon, color: Colors.white, size: 32),
+            child: Icon(icon, color: Colors.white, size: 45),
           ),
         ),
         const SizedBox(height: 8),
@@ -290,52 +275,5 @@ class HomePageView extends StatelessWidget {
     );
   }
 
-  Widget buildGroupButton(String title) {
-    return InkWell(
-      onTap: () {
-        // Navigate to group chat or details
-        Get.to(() => const GroupChatScreen());
-      },
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue.shade400, Colors.blue.shade700],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blue.withOpacity(0.3),
-              offset: const Offset(0, 4),
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Icon(Icons.group, color: Colors.white, size: 24),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                title,
-                style: StyleRefer.poppinsSemiBold.copyWith(
-                  fontSize: 18,
-                  color: Colors.white,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Icon(Icons.arrow_forward_ios_rounded,
-                color: Colors.white70, size: 16),
-          ],
-        ),
-      ),
-    );
-  }
+ 
 }

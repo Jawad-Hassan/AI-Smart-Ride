@@ -15,14 +15,21 @@ class DriverTrackingCarpoolingView extends StatelessWidget {
   final DriverTrackingCarpoolingController controller =
       Get.find<DriverTrackingCarpoolingController>();
 
-  DriverTrackingCarpoolingView({
-    Key? key,
-    required this.driverInfo,
-    required this.pickupLocation,
-    required this.dropoffLocation,
-    required this.pickupAddress,
-    required this.dropoffAddress,
-  }) : super(key: key);
+DriverTrackingCarpoolingView({
+  Key? key,
+  required this.driverInfo,
+  required this.pickupLocation,
+  required this.dropoffLocation,
+  required this.pickupAddress,
+  required this.dropoffAddress,
+}) : super(key: key) {
+  controller.driverInfo = driverInfo;
+  controller.pickupLocation = pickupLocation;
+  controller.dropoffLocation = dropoffLocation;
+  controller.pickupAddress = pickupAddress;
+  controller.dropoffAddress = dropoffAddress;
+}
+
 
   @override
   Widget build(BuildContext context) {

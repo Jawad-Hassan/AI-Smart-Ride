@@ -11,8 +11,7 @@ class DriverTrackingView extends StatelessWidget {
   final String pickupAddress;
   final String dropoffAddress;
 
-  final DriverTrackingController controller =
-      Get.find<DriverTrackingController>();
+  late final DriverTrackingController controller;
 
   DriverTrackingView({
     Key? key,
@@ -21,7 +20,15 @@ class DriverTrackingView extends StatelessWidget {
     required this.dropoffLocation,
     required this.pickupAddress,
     required this.dropoffAddress,
-  }) : super(key: key);
+  }) : super(key: key) {
+    // This ensures the controller is initialized correctly
+    controller = Get.put(DriverTrackingController());
+
+    controller.pickupLocation = pickupLocation;
+    controller.dropoffLocation = dropoffLocation;
+  }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -76,143 +83,122 @@ class DriverTrackingView extends StatelessWidget {
                 ),
               ],
             ),
-            Align(
-              alignment: Alignment.bottomCenter,
-              child: Container(
-                height: 280,
-                padding: const EdgeInsets.all(16),
-                decoration: const BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        "Driver on the way",
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          const CircleAvatar(child: Icon(Icons.person)),
-                          const SizedBox(width: 12),
-                          Expanded(
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  driverInfo['name'],
-                                  style: const TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600),
-                                ),
-                                Text(driverInfo['car']),
-                                Text("⭐ ${driverInfo['rating']}"),
-                                const SizedBox(height: 8),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text("From: $pickupAddress",
-                                        style: const TextStyle(fontSize: 12)),
-                                    Text("To: $dropoffAddress",
-                                        style: const TextStyle(fontSize: 12)),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Column(
-                            children: [
-                              const Icon(Icons.location_on,
-                                  color: Colors.green),
-                              const SizedBox(height: 4),
-                              Text(
-                                "Pickup:\n$pickupAddress",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              const Icon(Icons.access_time, color: Colors.blue),
-                              const SizedBox(height: 4),
-                              Text("ETA: ${controller.eta.value}"),
-                            ],
-                          ),
-                          Column(
-                            children: [
-                              const Icon(Icons.pin_drop, color: Colors.red),
-                              const SizedBox(height: 4),
-                              Text(
-                                "Dropoff:\n$dropoffAddress",
-                                textAlign: TextAlign.center,
-                                style: const TextStyle(fontSize: 12),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      const SizedBox(height: 16),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.message, size: 18),
-                            label: const Text(
-                              "Message",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            onPressed: controller.messageDriver,
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              minimumSize: const Size(100, 36),
-                            ),
-                          ),
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.call, size: 18),
-                            label: const Text(
-                              "Call",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            onPressed: controller.callDriver,
-                            style: ElevatedButton.styleFrom(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              minimumSize: const Size(80, 36),
-                            ),
-                          ),
-                          ElevatedButton.icon(
-                            icon: const Icon(Icons.cancel, size: 18),
-                            label: const Text(
-                              "Cancel",
-                              style: TextStyle(fontSize: 12),
-                            ),
-                            onPressed: controller.cancelRide,
-                            style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.redAccent,
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 12, vertical: 8),
-                              minimumSize: const Size(90, 36),
-                            ),
-                          ),
-                        ],
-                      )
-                    ],
-                  ),
-                ),
+           Align(
+  alignment: Alignment.bottomCenter,
+  child: Container(
+    padding: const EdgeInsets.all(16),
+    decoration: const BoxDecoration(
+      color: Colors.white,
+      borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+    ),
+    child: Column(
+      mainAxisSize: MainAxisSize.min,
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        // --- Driver Information ---
+        const Text(
+          "Driver Information",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Row(
+          children: [
+            const CircleAvatar(
+              radius: 30,
+              backgroundImage: AssetImage("assets/images/driver.jpg"), // adjust as needed
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(driverInfo['name'], style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w600)),
+                  Text(driverInfo['car'], style: const TextStyle(fontSize: 14)),
+                ],
               ),
             ),
+            Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.message, color: Colors.black87),
+                  onPressed: controller.messageDriver,
+                ),
+                IconButton(
+                  icon: const Icon(Icons.call, color: Colors.black87),
+                  onPressed: controller.callDriver,
+                ),
+                // IconButton(
+                //   icon: const Icon(Icons.share, color: Colors.black87),
+                //   onPressed: controller.shareRideDetails, // optional
+                // ),
+              ],
+            )
+          ],
+        ),
+
+        const SizedBox(height: 16),
+
+        // --- Order Information ---
+        const Text(
+          "Order Information",
+          style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+        ),
+        const SizedBox(height: 10),
+        Container(
+          padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
+          decoration: BoxDecoration(
+            color: Colors.grey[100],
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                children: [
+                  const Icon(Icons.location_pin, color: Colors.orange),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(pickupAddress, style: const TextStyle(fontSize: 14)),
+                  )
+                ],
+              ),
+              const SizedBox(height: 8),
+              Row(
+                children: [
+                  const Icon(Icons.location_pin, color: Colors.blue),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    child: Text(dropoffAddress, style: const TextStyle(fontSize: 14)),
+                  )
+                ],
+              ),
+            ],
+          ),
+        ),
+
+        const SizedBox(height: 16),
+
+        Align(
+          alignment: Alignment.centerRight,
+          child: ElevatedButton(
+            onPressed: controller.cancelRide,
+            style: ElevatedButton.styleFrom(
+              backgroundColor: Colors.red,
+              shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(20),
+              ),
+            ),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+              child: Text("Cancel", style: TextStyle(color: Colors.white)),
+            ),
+          ),
+        ),
+      ],
+    ),
+  ),
+),
+
           ],
         );
       }),

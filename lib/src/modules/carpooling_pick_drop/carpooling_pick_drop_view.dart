@@ -103,16 +103,16 @@ class CarpoolingPickDropView extends StatelessWidget {
                                   value!.isEmpty ? 'Required' : null,
                             ),
                             const SizedBox(height: 5),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Text("Auto-accept for written fare?"),
-                                Switch(
-                                  value: controller.autoAccept,
-                                  onChanged: controller.toggleAutoAccept,
-                                )
-                              ],
-                            ),
+                            // Row(
+                            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            //   children: [
+                            //     const Text("Auto-accept for written fare?"),
+                            //     Switch(
+                            //       value: controller.autoAccept,
+                            //       onChanged: controller.toggleAutoAccept,
+                            //     )
+                            //   ],
+                            // ),
                             const SizedBox(height: 5),
                             Textfield(
                               hintKey: "Number of passengers",

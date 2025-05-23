@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/order_info/order_info_logic.dart';
+import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:get/get.dart';
@@ -120,17 +121,17 @@ class DriverTrackingView extends StatelessWidget {
             Row(
               children: [
                 IconButton(
-                  icon: const Icon(Icons.message, color: Colors.black87),
+                  icon: const Icon(Icons.message, color: AppColors.primary),
                   onPressed: controller.messageDriver,
                 ),
                 IconButton(
-                  icon: const Icon(Icons.call, color: Colors.black87),
+                  icon: const Icon(Icons.call, color: AppColors.primary),
                   onPressed: controller.callDriver,
                 ),
-                // IconButton(
-                //   icon: const Icon(Icons.share, color: Colors.black87),
-                //   onPressed: controller.shareRideDetails, // optional
-                // ),
+                IconButton(
+                  icon: const Icon(Icons.share, color: AppColors.primary),
+                  onPressed: controller.shareRideDetails, // optional
+                ),
               ],
             )
           ],

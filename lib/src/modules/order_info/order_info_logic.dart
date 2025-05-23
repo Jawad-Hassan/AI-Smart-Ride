@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_application_1/src/modules/share_ride/share_ride_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_application_1/src/modules/ride_summary/ride_summary_view.dart'; // update path as needed
@@ -64,6 +65,15 @@ class DriverTrackingController extends GetxController {
           dropoffLocation: dropoffLocation,
         ));
   }
+  void shareRideDetails() {
+  Get.to(() => RideShareView(
+        driverInfo: Map<String, dynamic>.from(driverInfo),
+        pickupAddress: pickupLocation.toString(),
+        dropoffAddress: dropoffLocation.toString(),
+        trackingURL: "https://www.uber.com/track/abcdef123456", // or generate dynamically
+      ));
+}
+
 
   @override
   void onClose() {

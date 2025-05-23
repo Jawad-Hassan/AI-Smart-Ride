@@ -1,8 +1,9 @@
 import 'dart:async';
+import 'package:flutter_application_1/src/modules/ride_share_carpooling/ride_share_carpooling_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_application_1/src/modules/home_page/homepage_view.dart';
-import 'package:flutter_application_1/src/modules/ride_summary/ride_summary_view.dart'; // Update if needed
+import 'package:flutter_application_1/src/modules/ride_summary/ride_summary_view.dart';
 
 class DriverTrackingCarpoolingController extends GetxController {
   final isLoading = true.obs;
@@ -12,7 +13,7 @@ class DriverTrackingCarpoolingController extends GetxController {
   final rideCancelled = false.obs;
 
   late Timer _endRideTimer;
-  late Map<String, dynamic> driverInfo;
+  Map<String, dynamic> driverInfo = {};
   late LatLng pickupLocation;
   late LatLng dropoffLocation;
   late String pickupAddress;
@@ -56,6 +57,15 @@ class DriverTrackingCarpoolingController extends GetxController {
   void callDriver() {
     Get.snackbar("Calling Driver", "Initiating call...");
   }
+
+  void shareRideDetails() {
+  Get.to(() => RideShareCarpoolingView(
+        driverInfo: Map<String, dynamic>.from(driverInfo),
+        pickupAddress: pickupLocation.toString(),
+        dropoffAddress: dropoffLocation.toString(),
+        trackingURL: "https://www.uber.com/track/abcdef123456", // or generate dynamically
+      ));
+}
 
   void endRide() {
     if (rideCancelled.value) return;

@@ -42,7 +42,7 @@ class HomePageView extends StatelessWidget {
                   case 1:
                     return HistoryView();
                   case 2:
-                    return const GroupChatScreen();
+                    return GroupChatScreen();
                   default:
                     return _buildHomeContent(context);
                 }

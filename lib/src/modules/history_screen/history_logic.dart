@@ -33,7 +33,7 @@ class HistoryLogic {
       case 2:
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => const GroupChatScreen()),
+          MaterialPageRoute(builder: (context) => GroupChatScreen()),
         );
         break;
     }

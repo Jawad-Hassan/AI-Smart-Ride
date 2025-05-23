@@ -1,24 +1,23 @@
+// chat_page_view.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_logic.dart';
 import 'package:flutter_application_1/src/modules/chatting_screen/chatting_screen_view.dart';
-import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
+import 'package:flutter_application_1/src/modules/group_posting/group_posting_logic.dart';
+import 'package:flutter_application_1/src/modules/group_posting/group_posting_view.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 
 class GroupChatScreen extends StatelessWidget {
-  const GroupChatScreen({super.key});
+  GroupChatScreen({super.key});
+  final postLogic = Get.put(GroupPostingLogic());
 
   @override
   Widget build(BuildContext context) {
     final controller = Get.put(ChatPageLogic());
 
     return Scaffold(
-      // bottomNavigationBar: CustomBottomNavBar(
-      //   currentIndex: controller.currentIndex,
-      //   onTap: (index) => controller.onNavTapped(index, context),
-      // ),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,22 +55,19 @@ class GroupChatScreen extends StatelessWidget {
                 ),
               ],
             ),
-
             Center(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  const SizedBox(height: 24),
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16.0),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const SizedBox(height: 24),
                         Text(
                           'Your groups',
-                          style:
-                              StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
+                          style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
                         ),
                         const SizedBox(height: 12),
                         buildGroupButton('Himalayas\nTrip'),
@@ -84,32 +80,33 @@ class GroupChatScreen extends StatelessWidget {
                 ],
               ),
             ),
-          const SizedBox(height: 10),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16.0),
-            child: Text(
-              'Recommendations',
-              style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
-            ),
-          ),
-          const SizedBox(height: 16),
-            SizedBox(
-              height: 180,
-              child: ListView(
-                scrollDirection: Axis.horizontal,
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                children: [
-                  _buildRecommendationCard('Beach Tour\n21–26 Jan'),
-                  _buildRecommendationCard('Village Tour\n30 Mar – 4 Apr'),
-                  _buildRecommendationCard('City Meetup\nEvery Sunday'),
-                ],
+            const SizedBox(height: 10),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16.0),
+              child: Text(
+                'Recommendations',
+                style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
               ),
             ),
+            const SizedBox(height: 16),
+            Obx(() => SizedBox(
+                  height: 180,
+                  child: ListView(
+                    scrollDirection: Axis.horizontal,
+                    padding: const EdgeInsets.symmetric(horizontal: 20),
+                    children: postLogic.postedGroups.map((group) {
+                      final name = group['name']!;
+                      final time = group['time']!;
+                      return _buildRecommendationCard("$name\n$time");
+                    }).toList(),
+                  ),
+                )),
             const SizedBox(height: 30),
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  // Navigate to Create Group screen
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: (context) => GroupPostingView()));
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -153,9 +150,7 @@ class GroupChatScreen extends StatelessWidget {
           ),
           const SizedBox(height: 5),
           ElevatedButton(
-            onPressed: () {
-              // Join group logic
-            },
+            onPressed: () {},
             style: ElevatedButton.styleFrom(
               backgroundColor: Colors.blue,
               foregroundColor: Colors.white,
@@ -170,7 +165,6 @@ class GroupChatScreen extends StatelessWidget {
   Widget buildGroupButton(String title) {
     return InkWell(
       onTap: () {
-        // Navigate to group chat or details
         Get.to(() => ChattingScreenView());
       },
       borderRadius: BorderRadius.circular(24),

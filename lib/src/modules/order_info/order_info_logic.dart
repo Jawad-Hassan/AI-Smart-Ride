@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_application_1/src/modules/message_driver_screen/message_driver_view.dart';
 import 'package:flutter_application_1/src/modules/share_ride/share_ride_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -42,13 +43,15 @@ class DriverTrackingController extends GetxController {
 
   void cancelRide() {
     rideCancelled.value = true; // Mark as cancelled
-    _endRideTimer.cancel();     // Cancel the timer
+    _endRideTimer.cancel(); // Cancel the timer
     Get.snackbar("Ride Cancelled", "Your ride has been cancelled.");
     Get.offAllNamed('/home');
   }
 
   void messageDriver() {
     Get.snackbar("Message", "Message sent to the driver.");
+
+    Get.to(() => DriverChattingScreenView());
   }
 
   void callDriver() {
@@ -65,15 +68,16 @@ class DriverTrackingController extends GetxController {
           dropoffLocation: dropoffLocation,
         ));
   }
-  void shareRideDetails() {
-  Get.to(() => RideShareView(
-        driverInfo: Map<String, dynamic>.from(driverInfo),
-        pickupAddress: pickupLocation.toString(),
-        dropoffAddress: dropoffLocation.toString(),
-        trackingURL: "https://www.uber.com/track/abcdef123456", // or generate dynamically
-      ));
-}
 
+  void shareRideDetails() {
+    Get.to(() => RideShareView(
+          driverInfo: Map<String, dynamic>.from(driverInfo),
+          pickupAddress: pickupLocation.toString(),
+          dropoffAddress: dropoffLocation.toString(),
+          trackingURL:
+              "https://www.uber.com/track/abcdef123456", // or generate dynamically
+        ));
+  }
 
   @override
   void onClose() {

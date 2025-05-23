@@ -1,4 +1,3 @@
-// chat_page_view.dart
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_logic.dart';
 import 'package:flutter_application_1/src/modules/chatting_screen/chatting_screen_view.dart';
@@ -12,11 +11,10 @@ import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 class GroupChatScreen extends StatelessWidget {
   GroupChatScreen({super.key});
   final postLogic = Get.put(GroupPostingLogic());
+  final controller = Get.put(ChatPageLogic());
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ChatPageLogic());
-
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
@@ -70,13 +68,14 @@ class GroupChatScreen extends StatelessWidget {
                           style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
                         ),
                         const SizedBox(height: 12),
-                        buildGroupButton('Himalayas\nTrip'),
+                        Obx(() {
+                          return Column(
+                            children: controller.joinedGroups.map((group) => buildGroupButton(group)).toList(),
+                          );
+                        }),
                       ],
                     ),
                   ),
-                  const SizedBox(height: 6),
-                  const Text('59 members',
-                      style: TextStyle(color: Colors.white70, fontSize: 14)),
                 ],
               ),
             ),
@@ -97,7 +96,7 @@ class GroupChatScreen extends StatelessWidget {
                     children: postLogic.postedGroups.map((group) {
                       final name = group['name']!;
                       final time = group['time']!;
-                      return _buildRecommendationCard("$name\n$time");
+                      return _buildRecommendationCard(name, time);
                     }).toList(),
                   ),
                 )),
@@ -122,7 +121,7 @@ class GroupChatScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecommendationCard(String label) {
+  Widget _buildRecommendationCard(String name, String time) {
     return Container(
       width: 160,
       margin: const EdgeInsets.only(right: 15),
@@ -144,69 +143,75 @@ class GroupChatScreen extends StatelessWidget {
           const Icon(Icons.group_add, size: 50, color: Colors.blue),
           const SizedBox(height: 10),
           Text(
-            label,
+            "$name\n$time",
             style: const TextStyle(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 5),
-          ElevatedButton(
-            onPressed: () {},
-            style: ElevatedButton.styleFrom(
-              backgroundColor: Colors.blue,
-              foregroundColor: Colors.white,
-            ),
-            child: const Text('Join'),
-          ),
+          Obx(() {
+            bool isJoined = controller.joinedGroups.contains(name);
+            return ElevatedButton(
+              onPressed: isJoined ? null : () => controller.joinGroup(name),
+              style: ElevatedButton.styleFrom(
+                backgroundColor: isJoined ? Colors.grey : Colors.blue,
+                foregroundColor: Colors.white,
+              ),
+              child: Text(isJoined ? 'Joined' : 'Join'),
+            );
+          }),
         ],
       ),
     );
   }
 
   Widget buildGroupButton(String title) {
-    return InkWell(
-      onTap: () {
-        Get.to(() => ChattingScreenView());
-      },
-      borderRadius: BorderRadius.circular(24),
-      child: Container(
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.blue.shade400, Colors.blue.shade700],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
+  return InkWell(
+    onTap: () {
+      int members = controller.getMemberCount(title);
+      Get.to(() => ChattingScreenView(groupName: title, memberCount: members));
+    },
+    borderRadius: BorderRadius.circular(24),
+    child: Container(
+      width: double.infinity,
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+      margin: const EdgeInsets.only(bottom: 10),
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          colors: [Colors.blue.shade400, Colors.blue.shade700],
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+        ),
+        borderRadius: BorderRadius.circular(24),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.blue.withOpacity(0.3),
+            offset: const Offset(0, 4),
+            blurRadius: 10,
           ),
-          borderRadius: BorderRadius.circular(24),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.blue.withOpacity(0.3),
-              offset: const Offset(0, 4),
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            const Icon(Icons.group, color: Colors.white, size: 24),
-            const SizedBox(width: 12),
-            Expanded(
-              child: Text(
-                title,
-                style: StyleRefer.poppinsSemiBold.copyWith(
-                  fontSize: 18,
-                  color: Colors.white,
-                ),
-                maxLines: 2,
-                overflow: TextOverflow.ellipsis,
-              ),
-            ),
-            const Icon(Icons.arrow_forward_ios_rounded,
-                color: Colors.white70, size: 16),
-          ],
-        ),
+        ],
       ),
-    );
-  }
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.start,
+        children: [
+          const Icon(Icons.group, color: Colors.white, size: 24),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Text(
+              title,
+              style: StyleRefer.poppinsSemiBold.copyWith(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+            ),
+          ),
+          const Icon(Icons.arrow_forward_ios_rounded,
+              color: Colors.white70, size: 16),
+        ],
+      ),
+    ),
+  );
+}
+
 }

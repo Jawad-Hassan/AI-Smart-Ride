@@ -3,7 +3,10 @@ import 'package:get/get.dart';
 import 'chatting_screen_logic.dart';
 
 class ChattingScreenView extends StatelessWidget {
-  ChattingScreenView({super.key});
+  final String groupName;
+  final int memberCount;
+
+  ChattingScreenView({super.key, required this.groupName, required this.memberCount});
 
   final ChattingScreenController controller = Get.put(ChattingScreenController());
   final TextEditingController textController = TextEditingController();
@@ -35,12 +38,12 @@ class ChattingScreenView extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
-                    Text('Himalayas Trip',
-                        style: TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                    SizedBox(height: 4),
-                    Text('59 members',
-                        style: TextStyle(color: Colors.white70, fontSize: 14)),
+                  children: [
+                    Text(groupName,
+                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                    const SizedBox(height: 4),
+                    Text('$memberCount members',
+                        style: const TextStyle(color: Colors.white70, fontSize: 14)),
                   ],
                 ),
               ],

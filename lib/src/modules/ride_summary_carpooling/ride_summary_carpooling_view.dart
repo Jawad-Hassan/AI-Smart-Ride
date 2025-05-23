@@ -83,12 +83,12 @@ class RideSummaryView extends StatelessWidget {
                             ],
                           ),
                         ),
-                        Row(
-                          children: [
-                            IconButton(icon: const Icon(Icons.message, color: Colors.blue), onPressed: () {}),
-                            IconButton(icon: const Icon(Icons.call, color: Colors.blue), onPressed: () {}),
-                          ],
-                        ),
+                        // Row(
+                        //   children: [
+                        //     IconButton(icon: const Icon(Icons.message, color: Colors.blue), onPressed: () {}),
+                        //     IconButton(icon: const Icon(Icons.call, color: Colors.blue), onPressed: () {}),
+                        //   ],
+                        // ),
                       ],
                     ),
                     const SizedBox(height: 16),

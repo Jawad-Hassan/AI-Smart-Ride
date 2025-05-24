@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/share_ride/share_ride_logic.dart';
+
 
 import 'package:url_launcher/url_launcher.dart';
-import 'package:flutter/material.dart';
+
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 
 class RideShareView extends StatelessWidget {

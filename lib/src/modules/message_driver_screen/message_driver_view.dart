@@ -3,7 +3,7 @@ import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/message_driver_screen/message_driver_logic.dart';
 
-import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
+
 
 class DriverChattingScreenView extends StatelessWidget {
   final DriverChattingScreenController controller = Get.put(DriverChattingScreenController());

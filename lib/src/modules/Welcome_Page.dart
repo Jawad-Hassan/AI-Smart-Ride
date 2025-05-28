@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
+import 'package:flutter_application_1/src/modules/driver_passenger/driver_passenger_view.dart';
+import 'package:flutter_application_1/src/modules/driver_signUp/driver_sign_view.dart';
 
-import 'package:flutter_application_1/src/modules/login_page/login_view.dart';
+
 
 import 'package:flutter_application_1/src/modules/signup_page/sign_view.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
@@ -54,7 +56,8 @@ class WelcomePage extends StatelessWidget {
                         // Navigate to the LoginScreen
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => LoginView()),
+                          MaterialPageRoute(
+                              builder: (context) => UserTypeSelectionView()),
                         );
                       },
                       backgroundColor: Colors.blue,
@@ -68,11 +71,28 @@ class WelcomePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: CustomButton(
-                      text: "Signup",
+                      text: "Passenger SignUp",
                       onPressed: () {
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => SignView()),
+                        );
+                      },
+                      backgroundColor: Colors.white,
+                      textColor: Colors.blue,
+                      borderColor: Colors.blue,
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 40),
+                    child: CustomButton(
+                      text: "Driver SignUp",
+                      onPressed: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => DriverSignView()),
                         );
                       },
                       backgroundColor: Colors.white,

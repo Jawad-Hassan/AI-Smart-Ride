@@ -31,7 +31,7 @@ class GroupChatScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Row(
                     children: [
                       Text(
@@ -96,7 +96,8 @@ class GroupChatScreen extends StatelessWidget {
                     children: postLogic.postedGroups.map((group) {
                       final name = group['name']!;
                       final time = group['time']!;
-                      return _buildRecommendationCard(name, time);
+                      final details = group['details']!;
+                      return _buildRecommendationCard(context, name, time, details);
                     }).toList(),
                   ),
                 )),
@@ -104,8 +105,10 @@ class GroupChatScreen extends StatelessWidget {
             Center(
               child: ElevatedButton(
                 onPressed: () {
-                  Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => GroupPostingView()));
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => GroupPostingView()),
+                  );
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.blue,
@@ -121,7 +124,7 @@ class GroupChatScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecommendationCard(String name, String time) {
+  Widget _buildRecommendationCard(BuildContext context, String name, String time, String details) {
     return Container(
       width: 160,
       margin: const EdgeInsets.only(right: 15),
@@ -147,71 +150,93 @@ class GroupChatScreen extends StatelessWidget {
             style: const TextStyle(fontWeight: FontWeight.bold),
             textAlign: TextAlign.center,
           ),
-          const SizedBox(height: 5),
-          Obx(() {
-            bool isJoined = controller.joinedGroups.contains(name);
-            return ElevatedButton(
-              onPressed: isJoined ? null : () => controller.joinGroup(name),
-              style: ElevatedButton.styleFrom(
-                backgroundColor: isJoined ? Colors.grey : Colors.blue,
-                foregroundColor: Colors.white,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              IconButton(
+                icon: const Icon(Icons.info_outline, color: Colors.blue),
+                onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_) => AlertDialog(
+                      title: Text('Group Details'),
+                      content: Text('Name: $name\nTime: $time\nDetails: $details'),
+                      actions: [
+                        TextButton(
+                          child: const Text('Close'),
+                          onPressed: () => Navigator.of(context).pop(),
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-              child: Text(isJoined ? 'Joined' : 'Join'),
-            );
-          }),
+              Obx(() {
+                bool isJoined = controller.joinedGroups.any((g) => g['name'] == name);
+                return ElevatedButton(
+                  onPressed: isJoined ? null : () => controller.joinGroup(name, time, details),
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: isJoined ? Colors.grey : Colors.blue,
+                    foregroundColor: Colors.white,
+                  ),
+                  child: Text(isJoined ? 'Joined' : 'Join'),
+                );
+              }),
+            ],
+          ),
         ],
       ),
     );
   }
 
-  Widget buildGroupButton(String title) {
-  return InkWell(
-    onTap: () {
-      int members = controller.getMemberCount(title);
-      Get.to(() => ChattingScreenView(groupName: title, memberCount: members));
-    },
-    borderRadius: BorderRadius.circular(24),
-    child: Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
-      margin: const EdgeInsets.only(bottom: 10),
-      decoration: BoxDecoration(
-        gradient: LinearGradient(
-          colors: [Colors.blue.shade400, Colors.blue.shade700],
-          begin: Alignment.topLeft,
-          end: Alignment.bottomRight,
-        ),
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.blue.withOpacity(0.3),
-            offset: const Offset(0, 4),
-            blurRadius: 10,
+  Widget buildGroupButton(Map<String, String> group) {
+    final title = group['name'] ?? '';
+    return InkWell(
+      onTap: () {
+        int members = controller.getMemberCount(title);
+        Get.to(() => ChattingScreenView(groupName: title, memberCount: members));
+      },
+      borderRadius: BorderRadius.circular(24),
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
+        margin: const EdgeInsets.only(bottom: 10),
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [Colors.blue.shade400, Colors.blue.shade700],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
           ),
-        ],
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.start,
-        children: [
-          const Icon(Icons.group, color: Colors.white, size: 24),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              title,
-              style: StyleRefer.poppinsSemiBold.copyWith(
-                fontSize: 18,
-                color: Colors.white,
-              ),
-              maxLines: 2,
-              overflow: TextOverflow.ellipsis,
+          borderRadius: BorderRadius.circular(24),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.blue.withOpacity(0.3),
+              offset: const Offset(0, 4),
+              blurRadius: 10,
             ),
-          ),
-          const Icon(Icons.arrow_forward_ios_rounded,
-              color: Colors.white70, size: 16),
-        ],
+          ],
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            const Icon(Icons.group, color: Colors.white, size: 24),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Text(
+                title,
+                style: StyleRefer.poppinsSemiBold.copyWith(
+                  fontSize: 18,
+                  color: Colors.white,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ),
+            const Icon(Icons.arrow_forward_ios_rounded,
+                color: Colors.white70, size: 16),
+          ],
+        ),
       ),
-    ),
-  );
-}
-
+    );
+  }
 }

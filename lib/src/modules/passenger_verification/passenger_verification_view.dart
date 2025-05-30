@@ -1,23 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/src/modules/driver_signUp/driver_signup_logic.dart';
-
+import 'package:flutter_application_1/src/modules/passenger_verification/passenger_verification_logic.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
-import 'package:flutter_application_1/src/modules/utlis/app_icons.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_strings.dart';
 
-
-class DriverSignView extends StatelessWidget {
-  const DriverSignView({super.key});
+class PassengerVerificationView extends StatelessWidget {
+  const PassengerVerificationView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<DriverSignController>(
-      init: DriverSignController(),
+    return GetBuilder<PassengerVerificationController>(
+      init: PassengerVerificationController(),
       builder: (controller) {
         return Scaffold(
           backgroundColor: Colors.white,
@@ -25,7 +22,7 @@ class DriverSignView extends StatelessWidget {
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  // Header Image and Back Button
+                  // Image + Back Button
                   Stack(
                     children: [
                       AspectRatio(
@@ -57,7 +54,7 @@ class DriverSignView extends StatelessWidget {
                     ],
                   ),
 
-                  // SignUp Form
+                  // Form Section
                   Container(
                     width: double.infinity,
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
@@ -77,7 +74,7 @@ class DriverSignView extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            Texts.signUp,
+                            Texts.verification,
                             style: StyleRefer.poppinsBold.copyWith(
                               fontSize: 22,
                               color: AppColorss.text,
@@ -85,27 +82,35 @@ class DriverSignView extends StatelessWidget {
                           ),
                           const SizedBox(height: 8),
                           Text(
-                            Texts.belowLogin,
+                            Texts.belowVerification,
                             style: StyleRefer.poppinsRegular.copyWith(
                               fontSize: 14,
                               color: AppColorss.text.withOpacity(0.6),
                             ),
                           ),
                           const SizedBox(height: 24),
-                          Textfield(
-                            hintKey: AppHints.phoneNumber,
-                            icon: AppIconss.phone,
-                            controller: controller.phoneController,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            maxLength: 11,
-                            inputType: TextInputType.phone,
-                          ),
+Textfield(
+  hintKey: AppHints.code,
+  controller: controller.codeController,
+  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+  maxLength: 4,
+  inputType: TextInputType.number,
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the code';
+    } else if (value.length != 4) {
+      return 'Code must be exactly 4 digits';
+    }
+    return null;
+  },
+),
+
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             height: 48,
                             child: ElevatedButton(
-                              onPressed: () => controller.onSignUpPressed(context),
+                              onPressed: controller.onContinuePressed,
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primary,
                                 shape: RoundedRectangleBorder(
@@ -113,7 +118,7 @@ class DriverSignView extends StatelessWidget {
                                 ),
                               ),
                               child: Text(
-                                Texts.signUp,
+                                Texts.continued,
                                 style: StyleRefer.poppinsSemiBold.copyWith(
                                   color: Colors.white,
                                   fontSize: 16,

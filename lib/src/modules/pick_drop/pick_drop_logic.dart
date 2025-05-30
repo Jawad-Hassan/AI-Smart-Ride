@@ -8,6 +8,8 @@ class PickDropController extends GetxController {
   final TextEditingController dropoffController = TextEditingController();
   final TextEditingController fareController = TextEditingController();
 
+  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   bool autoAccept = false;
 
   void toggleAutoAccept(bool value) {
@@ -16,14 +18,11 @@ class PickDropController extends GetxController {
   }
 
   void handleSearch() {
+    if (!formKey.currentState!.validate()) return;
+
     final pickup = pickupController.text;
     final dropoff = dropoffController.text;
     final fare = fareController.text;
-
-    if (pickup.isEmpty || dropoff.isEmpty || fare.isEmpty) {
-      Get.snackbar("Error", "Please fill in all fields.");
-      return;
-    }
 
     final pickupLocation = LatLng(24.8607, 67.0011);
     final dropoffLocation = LatLng(24.8937, 67.0281);
@@ -39,7 +38,7 @@ class PickDropController extends GetxController {
         ));
   }
 
-  // Remove @override here if you get error, and just define the method
+  @override
   void onClose() {
     pickupController.dispose();
     dropoffController.dispose();

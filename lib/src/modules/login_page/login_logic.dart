@@ -15,7 +15,7 @@ class LoginController extends GetxController {
 
   void onLoginPressed(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      Get.toNamed('/verification'); // Assuming you have route named '/verification'
+      Get.toNamed('/passengerVerification'); // Assuming you have route named '/verification'
     }
   }
 

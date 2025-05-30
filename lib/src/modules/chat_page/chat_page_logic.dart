@@ -6,12 +6,12 @@ import 'package:flutter_application_1/src/modules/History_screen/history_view.da
 class ChatPageLogic extends GetxController {
   var currentIndex = 2;
 
-  var joinedGroups = <String>[].obs;
+  var joinedGroups = <Map<String, String>>[].obs;
   var groupMembers = <String, int>{}.obs;
 
   void onNavTapped(int index, BuildContext context) {
     if (index == currentIndex) return;
-
+    currentIndex = index;
     switch (index) {
       case 0:
         Get.off(() => const HomePageView());
@@ -22,15 +22,23 @@ class ChatPageLogic extends GetxController {
     }
   }
 
-  void joinGroup(String groupName) {
-    if (!joinedGroups.contains(groupName)) {
-      joinedGroups.add(groupName);
+  void joinGroup(String groupName, String time, String details) {
+    bool alreadyJoined = joinedGroups.any((group) => group['name'] == groupName);
+    if (!alreadyJoined) {
+      joinedGroups.add({
+        'name': groupName,
+        'time': time,
+        'details': details,
+      });
       groupMembers[groupName] = (groupMembers[groupName] ?? 0) + 1;
     }
   }
-
-  int getMemberCount(String groupName) {
-    return groupMembers[groupName] ?? 1; // default 1 for group creator
-  }
+void leaveGroup(String groupName) {
+  joinedGroups.removeWhere((group) => group['name'] == groupName);
+  groupMembers.remove(groupName);
 }
 
+  int getMemberCount(String groupName) {
+    return groupMembers[groupName] ?? 1;
+  }
+}

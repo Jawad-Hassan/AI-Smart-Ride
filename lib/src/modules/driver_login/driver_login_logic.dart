@@ -15,11 +15,11 @@ class DriverLoginController extends GetxController {
 
   void onLoginPressed(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      Get.toNamed('/driververification'); // Assuming you have route named '/verification'
+      Get.toNamed('/driverVerification'); // Assuming you have route named '/verification'
     }
   }
 
   void goToSignUp() {
-    Get.toNamed('/driversignup'); // Assuming you have route named '/signup'
+    Get.toNamed('/signup'); // Assuming you have route named '/signup'
   }
 }

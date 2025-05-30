@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/src/modules/driver_verification_page/driver_verification_logic.dart';
+import 'package:flutter_application_1/src/modules/driver_verification/driver_verification_logic.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_strings.dart';
-
 
 class DriverVerificationView extends StatelessWidget {
   const DriverVerificationView({super.key});
@@ -91,12 +90,21 @@ class DriverVerificationView extends StatelessWidget {
                           ),
                           const SizedBox(height: 24),
                           Textfield(
-                            hintKey: AppHints.code,
-                            controller: controller.codeController,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            maxLength: 4,
-                            inputType: TextInputType.number,
-                          ),
+  hintKey: AppHints.code,
+  controller: controller.codeController,
+  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+  maxLength: 4,
+  inputType: TextInputType.number,
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the code';
+    } else if (value.length != 4) {
+      return 'Code must be exactly 4 digits';
+    }
+    return null;
+  },
+),
+
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,

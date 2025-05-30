@@ -29,22 +29,44 @@ class ChattingScreenView extends StatelessWidget {
             ),
             padding: const EdgeInsets.only(top: 40, left: 16, right: 16),
             child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                IconButton(
-                  icon: const Icon(Icons.arrow_back, color: Colors.white),
-                  onPressed: () => Get.back(),
-                ),
-                const SizedBox(width: 8),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
+                Row(
                   children: [
-                    Text(groupName,
-                        style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
-                    const SizedBox(height: 4),
-                    Text('$memberCount members',
-                        style: const TextStyle(color: Colors.white70, fontSize: 14)),
+                    IconButton(
+                      icon: const Icon(Icons.arrow_back, color: Colors.white),
+                      onPressed: () => Get.back(),
+                    ),
+                    const SizedBox(width: 8),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Text(groupName,
+                            style: const TextStyle(color: Colors.white, fontSize: 18, fontWeight: FontWeight.bold)),
+                        const SizedBox(height: 4),
+                        Text('$memberCount members',
+                            style: const TextStyle(color: Colors.white70, fontSize: 14)),
+                      ],
+                    ),
                   ],
+                ),
+
+                // Leave Group button
+                TextButton.icon(
+                  style: TextButton.styleFrom(
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.redAccent.withOpacity(0.8),
+                    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  ),
+                  icon: const Icon(Icons.exit_to_app, size: 20),
+                  label: const Text('Leave Group'),
+                  onPressed: () {
+                    // Call your controller method to leave group
+                    controller.leaveGroup(groupName);
+                    // Close the chat screen after leaving
+                    Get.back();
+                  },
                 ),
               ],
             ),

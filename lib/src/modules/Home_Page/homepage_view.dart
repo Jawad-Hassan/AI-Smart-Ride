@@ -1,6 +1,6 @@
-import 'dart:io'; // for exit(0)
+import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart'; // for SystemNavigator.pop()
+import 'package:flutter/services.dart';
 import 'package:flutter_application_1/src/modules/History_screen/history_view.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_logic.dart';
 import 'package:flutter_application_1/src/modules/carpooling_pick_drop/carpooling_pick_drop_view.dart';
@@ -24,11 +24,10 @@ class HomePageView extends StatelessWidget {
       builder: (controller) {
         return WillPopScope(
           onWillPop: () async {
-            // Exit the app
             if (Platform.isAndroid) {
-              SystemNavigator.pop(); // Closes the app on Android
+              SystemNavigator.pop();
             } else {
-              exit(0); // Fallback for other platforms
+              exit(0);
             }
             return false;
           },
@@ -116,20 +115,15 @@ class HomePageView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               children: [
-                _buildServiceButton(
-                    'MiniCar', Icons.local_taxi,Colors.blue,context),
+                _buildServiceButton('MiniCar', Icons.local_taxi, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton(
-                    'CarAC', Icons.ac_unit, Colors.blue, context),
+                _buildServiceButton('CarAC', Icons.ac_unit, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton(
-                    'Bike', Icons.pedal_bike, Colors.blue, context),
+                _buildServiceButton('Bike', Icons.pedal_bike, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton(
-                    'Rickshaw', Icons.electric_rickshaw, Colors.blue, context),
+                _buildServiceButton('Rickshaw', Icons.electric_rickshaw, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton(
-                    'Carpooling', Icons.group, Colors.blue, context),
+                _buildServiceButton('Carpooling', Icons.group, Colors.blue, context),
               ],
             ),
           ),
@@ -156,15 +150,12 @@ class HomePageView extends StatelessWidget {
               ],
             ),
           ),
-
-
         ],
       ),
     );
   }
 
-  Widget _buildServiceButton(
-      String label, IconData icon, Color color, BuildContext context) {
+  Widget _buildServiceButton(String label, IconData icon, Color color, BuildContext context) {
     return Column(
       children: [
         SizedBox(
@@ -176,8 +167,7 @@ class HomePageView extends StatelessWidget {
               if (label == 'Carpooling') {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => const CarpoolingPickDropView()),
+                  MaterialPageRoute(builder: (context) => const CarpoolingPickDropView()),
                 );
               } else {
                 Navigator.push(
@@ -188,7 +178,9 @@ class HomePageView extends StatelessWidget {
             },
             backgroundColor: color,
             borderRadius: 12,
-            child: Icon(icon, color: Colors.white, size: 45),
+            child: Center(
+              child: Icon(icon, color: Colors.white, size: 40),
+            ),
           ),
         ),
         const SizedBox(height: 8),
@@ -209,14 +201,12 @@ class HomePageView extends StatelessWidget {
         color: Colors.grey.shade200,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            title,
-            style: StyleRefer.poppinsRegular.copyWith(fontSize: 16),
-          ),
-        ],
+      child: Center(
+        child: Text(
+          title,
+          style: StyleRefer.poppinsRegular.copyWith(fontSize: 16),
+          textAlign: TextAlign.center,
+        ),
       ),
     );
   }
@@ -233,13 +223,12 @@ class HomePageView extends StatelessWidget {
                   style: StyleRefer.poppinsBold.copyWith(fontSize: 22),
                 )),
             const SizedBox(height: 24),
-            // Settings Button with Icon
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomButton(
                 onPressed: () => Get.to(() => SettingsView()),
-                backgroundColor: Colors.transparent, // Remove blue background
-                borderColor: Colors.transparent, // Remove border as well
+                backgroundColor: Colors.transparent,
+                borderColor: Colors.transparent,
                 textColor: Colors.black,
                 child: Row(
                   children: [
@@ -256,10 +245,7 @@ class HomePageView extends StatelessWidget {
                 ),
               ),
             ),
-
             const SizedBox(height: 32),
-
-            // Driver Mode Button
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: CustomButton(
@@ -274,6 +260,4 @@ class HomePageView extends StatelessWidget {
       ),
     );
   }
-
- 
 }

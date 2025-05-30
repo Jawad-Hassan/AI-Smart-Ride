@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:flutter_application_1/src/modules/driver_passenger/driver_passenger_logic.dart';
+import 'package:flutter_application_1/src/modules/LoginChoice/login_choice_logic.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';

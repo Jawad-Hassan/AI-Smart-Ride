@@ -5,9 +5,6 @@ import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'pick_drop_logic.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 
-
-
-
 class PickDropView extends StatelessWidget {
   const PickDropView({super.key});
 
@@ -20,8 +17,7 @@ class PickDropView extends StatelessWidget {
           backgroundColor: Colors.white,
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: const EdgeInsets.only(
-                  bottom: 24), // Extra padding for keyboard
+              padding: const EdgeInsets.only(bottom: 24),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -44,9 +40,8 @@ class PickDropView extends StatelessWidget {
                             children: [
                               GestureDetector(
                                 onTap: () {
-  Get.offAll(() => const HomePageView());
-},
-
+                                  Get.offAll(() => const HomePageView());
+                                },
                                 child: const Icon(Icons.arrow_back,
                                     color: Colors.white),
                               ),
@@ -65,84 +60,98 @@ class PickDropView extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   const SizedBox(height: 16),
 
                   // Input Fields Container
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Container(
-                      padding: const EdgeInsets.all(16),
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(16),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.grey.withOpacity(0.2),
-                            blurRadius: 10,
-                            offset: const Offset(0, 4),
-                          ),
-                        ],
-                      ),
-                      child: Column(
-                        children: [
-                          TextField(
-                            controller: controller.pickupController,
-                            decoration: const InputDecoration(
-                              prefixIcon: Icon(Icons.location_on_outlined,
-                                  color: Colors.red),
-                              hintText: 'Search Pickup Location',
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
-                              ),
+                    child: Form(
+                      key: controller.formKey,
+                      child: Container(
+                        padding: const EdgeInsets.all(16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(16),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.grey.withOpacity(0.2),
+                              blurRadius: 10,
+                              offset: const Offset(0, 4),
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextField(
-                            controller: controller.dropoffController,
-                            decoration: const InputDecoration(
-                              prefixIcon:
-                                  Icon(Icons.location_on, color: Colors.blue),
-                              hintText: 'Search Dropoff Location',
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            TextFormField(
+                              controller: controller.pickupController,
+                              decoration: const InputDecoration(
+                                prefixIcon: Icon(Icons.location_on_outlined,
+                                    color: Colors.red),
+                                hintText: 'Search Pickup Location',
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                ),
                               ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Pickup location is required';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          TextField(
-                            controller: controller.fareController,
-                            keyboardType: TextInputType.number,
-                            decoration: const InputDecoration(
-                              hintText: 'Fare',
-                              border: OutlineInputBorder(
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(12)),
+                            const SizedBox(height: 5),
+                            TextFormField(
+                              controller: controller.dropoffController,
+                              decoration: const InputDecoration(
+                                prefixIcon:
+                                    Icon(Icons.location_on, color: Colors.blue),
+                                hintText: 'Search Dropoff Location',
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                ),
                               ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Dropoff location is required';
+                                }
+                                return null;
+                              },
                             ),
-                          ),
-                          const SizedBox(height: 5),
-                          // Row(
-                          //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          //   children: [
-                          //     const Text("Auto-accept for written fare?"),
-                          //     Switch(
-                          //       value: controller.autoAccept,
-                          //       onChanged: controller.toggleAutoAccept,
-                          //     )
-                          //   ],
-                          // ),
-                          const SizedBox(height: 8),
-                          CustomButton(
-                            text: "Search",
-                            onPressed: controller.handleSearch,
-                            backgroundColor: Colors.blue,
-                            textColor: Colors.white,
-                            borderRadius: 12,
-                          ),
-                        ],
+                            const SizedBox(height: 5),
+                            TextFormField(
+                              controller: controller.fareController,
+                              keyboardType: TextInputType.number,
+                              decoration: const InputDecoration(
+                                hintText: 'Fare',
+                                border: OutlineInputBorder(
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(12)),
+                                ),
+                              ),
+                              validator: (value) {
+                                if (value == null || value.trim().isEmpty) {
+                                  return 'Fare is required';
+                                }
+                                return null;
+                              },
+                            ),
+                            const SizedBox(height: 8),
+                            CustomButton(
+                              text: "Search",
+                              onPressed: () {
+                                if (controller.formKey.currentState!
+                                    .validate()) {
+                                  controller.handleSearch();
+                                }
+                              },
+                              backgroundColor: Colors.blue,
+                              textColor: Colors.white,
+                              borderRadius: 12,
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

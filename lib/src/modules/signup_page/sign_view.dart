@@ -9,7 +9,6 @@ import 'package:flutter_application_1/src/modules/utlis/app_icons.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_strings.dart';
 
-
 class SignView extends StatelessWidget {
   const SignView({super.key});
 
@@ -59,7 +58,8 @@ class SignView extends StatelessWidget {
                   // SignUp Form
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 32),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -95,16 +95,27 @@ class SignView extends StatelessWidget {
                             hintKey: AppHints.phoneNumber,
                             icon: AppIconss.phone,
                             controller: controller.phoneController,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+                            inputFormatters: [
+                              FilteringTextInputFormatter.digitsOnly
+                            ],
                             maxLength: 11,
                             inputType: TextInputType.phone,
+                            validator: (value) {
+                              if (value == null || value.trim().isEmpty) {
+                                return 'Please enter phone number';
+                              } else if (value.length != 11) {
+                                return 'Phone number must be 11 digits';
+                              }
+                              return null;
+                            },
                           ),
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,
                             height: 48,
                             child: ElevatedButton(
-                              onPressed: () => controller.onSignUpPressed(context),
+                              onPressed: () =>
+                                  controller.onSignUpPressed(context),
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: AppColors.primary,
                                 shape: RoundedRectangleBorder(

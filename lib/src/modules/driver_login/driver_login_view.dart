@@ -9,7 +9,6 @@ import 'package:flutter_application_1/src/modules/utlis/app_icons.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_strings.dart';
 
-
 class DriverLoginView extends StatelessWidget {
   const DriverLoginView({super.key});
 

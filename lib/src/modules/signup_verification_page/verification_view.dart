@@ -57,7 +57,8 @@ class VerificationView extends StatelessWidget {
                   // Form Section
                   Container(
                     width: double.infinity,
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 24, vertical: 32),
                     decoration: const BoxDecoration(
                       color: Colors.white,
                       boxShadow: [
@@ -89,13 +90,22 @@ class VerificationView extends StatelessWidget {
                             ),
                           ),
                           const SizedBox(height: 24),
-                          Textfield(
-                            hintKey: AppHints.code,
-                            controller: controller.codeController,
-                            inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                            maxLength: 4,
-                            inputType: TextInputType.number,
-                          ),
+Textfield(
+  hintKey: AppHints.code,
+  controller: controller.codeController,
+  inputFormatters: [FilteringTextInputFormatter.digitsOnly],
+  maxLength: 4,
+  inputType: TextInputType.number,
+  validator: (value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter the code';
+    } else if (value.length != 4) {
+      return 'Code must be exactly 4 digits';
+    }
+    return null;
+  },
+),
+
                           const SizedBox(height: 24),
                           SizedBox(
                             width: double.infinity,

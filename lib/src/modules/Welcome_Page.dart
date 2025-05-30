@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
-import 'package:flutter_application_1/src/modules/driver_passenger/driver_passenger_view.dart';
-import 'package:flutter_application_1/src/modules/driver_signUp/driver_sign_view.dart';
-
-
-
+import 'package:flutter_application_1/src/modules/LoginChoice/login_choice_view.dart';
 import 'package:flutter_application_1/src/modules/signup_page/sign_view.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
@@ -39,7 +35,7 @@ class WelcomePage extends StatelessWidget {
                   ),
                   const SizedBox(height: 8),
                   Text(
-                    "Login to continue",
+                    "Join SmartRide - your journey, your fare, your choice!",
                     style: StyleRefer.poppinsRegular.copyWith(
                       fontSize: 14,
                       color: Colors.grey,
@@ -71,7 +67,7 @@ class WelcomePage extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 40),
                     child: CustomButton(
-                      text: "Passenger SignUp",
+                      text: "SignUp",
                       onPressed: () {
                         Navigator.push(
                           context,
@@ -83,23 +79,23 @@ class WelcomePage extends StatelessWidget {
                       borderColor: Colors.blue,
                     ),
                   ),
-                  const SizedBox(height: 10),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 40),
-                    child: CustomButton(
-                      text: "Driver SignUp",
-                      onPressed: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => DriverSignView()),
-                        );
-                      },
-                      backgroundColor: Colors.white,
-                      textColor: Colors.blue,
-                      borderColor: Colors.blue,
-                    ),
-                  ),
+                  // const SizedBox(height: 10),
+                  // Padding(
+                  //   padding: const EdgeInsets.symmetric(horizontal: 40),
+                  //   child: CustomButton(
+                  //     text: "Driver SignUp",
+                  //     onPressed: () {
+                  //       Navigator.push(
+                  //         context,
+                  //         MaterialPageRoute(
+                  //             builder: (context) => DriverSignView()),
+                  //       );
+                  //     },
+                  //     backgroundColor: Colors.white,
+                  //     textColor: Colors.blue,
+                  //     borderColor: Colors.blue,
+                  //   ),
+                  // ),
                 ],
               ),
             ),

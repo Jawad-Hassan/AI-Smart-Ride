@@ -1,16 +1,25 @@
+import 'package:flutter_application_1/src/modules/Welcome_Page.dart';
 import 'package:get/get.dart';
 
 
 class SettingsController extends GetxController {
   void deleteAccount() {
-    // TODO: Add real logic here
-    Get.snackbar('Delete Account', 'Account deletion logic triggered.',
-        snackPosition: SnackPosition.BOTTOM);
+    // Show feedback
+    // Get.snackbar('Delete Account', 'Account deletion logic triggered.',
+    //     snackPosition: SnackPosition.BOTTOM);
+    
+    // Navigate to WelcomePage and remove all routes
+    Future.delayed(const Duration(milliseconds: 800), () {
+      Get.offAll(() => WelcomePage());
+    });
   }
 
   void logout() {
-    // TODO: Add real logout logic
-    Get.snackbar('Log Out', 'Logout logic triggered.',
-        snackPosition: SnackPosition.BOTTOM);
+    // Get.snackbar('Log Out', 'Logout logic triggered.',
+    //     snackPosition: SnackPosition.BOTTOM);
+
+    Future.delayed(const Duration(milliseconds: 800), () {
+      Get.offAll(() => WelcomePage());
+    });
   }
 }

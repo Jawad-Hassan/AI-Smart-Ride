@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_view.dart';
+
+import 'package:flutter_application_1/src/modules/driver_doc_upload/driver_doc_view.dart';
+import 'package:flutter_application_1/src/modules/driver_homepage/driver_home_view.dart';
+import 'package:flutter_application_1/src/modules/driver_info/driver_info_view.dart';
 import 'package:flutter_application_1/src/modules/driver_login/driver_login_view.dart';
 import 'package:flutter_application_1/src/modules/driver_verification/driver_verification_view.dart';
 import 'package:flutter_application_1/src/modules/login_page/login_view.dart';
@@ -27,7 +31,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home:  const WelcomePage(),
+      home:   DriverInfoView(),
 
       // Add named routes here
       getPages: [

@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/driver_homepage/driver_home_logic.dart';
 import 'package:get/get.dart';
 
+
 class DriverActiveRequestLogic extends GetxController {
-  final TextEditingController priceController = TextEditingController();
+  var activeRide = Rxn<Ride>();
+  final priceController = TextEditingController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    // Fetch passed ride from arguments
+    final ride = Get.arguments as Ride?;
+    if (ride != null) {
+      activeRide.value = ride;
+    }
+  }
 
   void onNextStepPressed() {
-    final price = priceController.text.trim();
-    if (price.isEmpty) {
-      Get.snackbar("Error", "Please enter your price offer.",
-          backgroundColor: Colors.red.withOpacity(0.8),
-          colorText: Colors.white);
-      return;
-    }
-
-    // Simulate processing logic
-    print("Offered price: Rs. $price");
-    Get.snackbar("Success", "Your offer has been submitted.",
-        backgroundColor: Colors.green.withOpacity(0.8),
-        colorText: Colors.white);
+    // Implement logic for next step, e.g., send offer
+    print("Offered Price: ${priceController.text}");
   }
 
   @override
@@ -25,4 +27,5 @@ class DriverActiveRequestLogic extends GetxController {
     priceController.dispose();
     super.onClose();
   }
+
 }

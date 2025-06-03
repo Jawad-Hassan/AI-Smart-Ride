@@ -24,33 +24,14 @@ class DriverHomeLogic extends GetxController {
       Ride(
           name: 'Asad',
           distance: '1.5',
-          route: 'Gulberg to township',
-          fare: '300'),
+          route: 'Gulberg to DHA',
+          fare: '500'),
       Ride(
-          name: 'Asad',
+          name: 'Ali',
           distance: '1.5',
           route: 'Gulberg to township',
           fare: '300'),
-      Ride(
-          name: 'Asad',
-          distance: '1.5',
-          route: 'Gulberg to township',
-          fare: '300'),
-      Ride(
-          name: 'Asad',
-          distance: '1.5',
-          route: 'Gulberg to township',
-          fare: '300'),
-      Ride(
-          name: 'Asad',
-          distance: '1.5',
-          route: 'Gulberg to township',
-          fare: '300'),
-      Ride(
-          name: 'Asad',
-          distance: '1.5',
-          route: 'Gulberg to township',
-          fare: '300'),
+
     ]);
   }
 }

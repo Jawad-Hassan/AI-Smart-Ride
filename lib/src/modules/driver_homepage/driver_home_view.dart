@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
-import 'package:flutter_application_1/src/modules/driver_activerequestpage/active_request_view.dart';
+
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
-
 
 import '../driver_histroypage/driver_history_view.dart';
 import 'driver_home_logic.dart';
@@ -17,7 +16,7 @@ class DriverHomePageView extends StatelessWidget {
   final List<Widget> _pages = [
     HomePageBody(), // Home content
     DriverHistoryPage(),
-    DriverActiveRequestView(),
+    // DriverActiveRequestView(),
   ];
 
   void _onItemTapped(int index) {
@@ -57,14 +56,14 @@ class DriverHomePageView extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
-                ListTile(
-                  leading: Icon(Icons.chat_bubble_outline),
-                  title: Text('Active Request'),
-                  onTap: () {
-                    _onItemTapped(2);
-                    Navigator.pop(context);
-                  },
-                ),
+                // ListTile(
+                //   leading: Icon(Icons.chat_bubble_outline),
+                //   title: Text('Active Request'),
+                //   onTap: () {
+                //     _onItemTapped(2);
+                //     Navigator.pop(context);
+                //   },
+                // ),
                 Divider(),
                 Padding(
                   padding:
@@ -100,12 +99,12 @@ class DriverHomePageView extends StatelessWidget {
                         _selectedIndex.value == 1 ? Colors.blue : Colors.grey),
                 label: 'History',
               ),
-              BottomNavigationBarItem(
-                icon: Icon(Icons.chat_bubble_outline,
-                    color:
-                        _selectedIndex.value == 2 ? Colors.blue : Colors.grey),
-                label: 'Active Request',
-              ),
+              // BottomNavigationBarItem(
+              //   icon: Icon(Icons.chat_bubble_outline,
+              //       color:
+              //           _selectedIndex.value == 2 ? Colors.blue : Colors.grey),
+              //   label: 'Active Request',
+              // ),
             ],
           ),
         ));
@@ -233,17 +232,16 @@ class HomePageBody extends StatelessWidget {
                                     fontSize: 14,
                                     borderRadius: 8,
                                     onPressed: () {
-                                      Get.to(() => DriverActiveRequestView(),
-                                          arguments: ride);
-                                    },
+                                      Get.toNamed('/active-request', arguments: ride);
 
+                                    },
                                   ),
                                   SizedBox(width: 12),
                                   CustomButton(
                                     width: 100,
                                     height: 36,
-                                    text: 'Join',
-                                    backgroundColor: Colors.blue,
+                                    text: 'reject',
+                                    backgroundColor: Colors.red,
                                     fontSize: 14,
                                     borderRadius: 8,
                                     onPressed: () {
@@ -265,4 +263,3 @@ class HomePageBody extends StatelessWidget {
     );
   }
 }
-

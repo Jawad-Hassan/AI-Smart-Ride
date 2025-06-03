@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DriverVerificationController extends GetxController {
+class PassengerSignUpVerificationController extends GetxController {
   final codeController = TextEditingController();
   final formKey = GlobalKey<FormState>();
 
@@ -13,7 +13,7 @@ class DriverVerificationController extends GetxController {
 
   void onContinuePressed() {
     if (formKey.currentState!.validate()) {
-      Get.toNamed('/driver-home');
+      Get.toNamed('/home');
     }
   }
 

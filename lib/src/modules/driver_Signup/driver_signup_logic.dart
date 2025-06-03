@@ -1,10 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-class DriverLoginController extends GetxController {
+class DriverSignUpController extends GetxController {
   final phoneController = TextEditingController();
-
-  // Optionally handle form validation, state, etc.
   final formKey = GlobalKey<FormState>();
 
   @override
@@ -13,13 +11,13 @@ class DriverLoginController extends GetxController {
     super.onClose();
   }
 
-  void onLoginPressed(BuildContext context) {
+  void onSignUpPressed(BuildContext context) {
     if (formKey.currentState!.validate()) {
-      Get.toNamed('/driverVerification'); 
+      Get.toNamed('/driver-signup-verification');
     }
   }
 
-  void goToSignUp() {
-    Get.toNamed( '/driver-signup'); 
+  void goBack() {
+    Get.back();
   }
 }

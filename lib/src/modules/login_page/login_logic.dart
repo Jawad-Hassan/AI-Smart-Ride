@@ -20,6 +20,6 @@ class LoginController extends GetxController {
   }
 
   void goToSignUp() {
-    Get.toNamed('/signup'); // Assuming you have route named '/signup'
+    Get.toNamed('/passenger-signup'); // Assuming you have route named '/signup'
   }
 }

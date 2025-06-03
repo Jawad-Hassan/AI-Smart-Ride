@@ -9,7 +9,7 @@ import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_nav
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/pick_drop/pick_drop_view.dart';
 import 'package:flutter_application_1/src/modules/setting_screen/setting_screen_view.dart';
-import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
+
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
 import 'package:get/get.dart';
@@ -32,7 +32,75 @@ class HomePageView extends StatelessWidget {
             return false;
           },
           child: Scaffold(
-            drawer: _buildDrawer(controller),
+            drawer: Drawer(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(color: Colors.blue),
+                    child: Text(
+                      'User Menu',
+                      style: StyleRefer.poppinsBold.copyWith(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    ),
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.home),
+                    title: Text('Home'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      controller.onNavTapped(0); // Go to Home
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.history),
+                    title: Text('History'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      controller.onNavTapped(1); // Go to HistoryView
+                    },
+                  ),
+                  ListTile(
+                    leading: Icon(Icons.chat_bubble),
+                    title: Text('Chat'),
+                    onTap: () {
+                      Navigator.pop(context);
+                      controller.onNavTapped(2); // Go to Chat Page
+                    },
+                  ),
+                  Divider(),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: CustomButton(
+                      text: 'Settings',
+                      backgroundColor: Colors.blue,
+                      onPressed: () {
+                        Navigator.pop(context); // Close the drawer first
+                        Future.delayed(const Duration(milliseconds: 250), () {
+                          Get.to(() =>
+                              SettingsView()); // Navigate to settings screen
+                        });
+                      },
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                    child: CustomButton(
+                      text: 'Driver Mode',
+                      backgroundColor: Colors.blue,
+                      onPressed: () {
+                        Navigator.pop(context);
+                        controller.toggleDriverMode(); // Optional
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ),
             body: SafeArea(
               child: Obx(() {
                 switch (controller.selectedIndex.value) {
@@ -115,15 +183,20 @@ class HomePageView extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               children: [
-                _buildServiceButton('MiniCar', Icons.local_taxi, Colors.blue, context),
+                _buildServiceButton(
+                    'MiniCar', Icons.local_taxi, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('CarAC', Icons.ac_unit, Colors.blue, context),
+                _buildServiceButton(
+                    'CarAC', Icons.ac_unit, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Bike', Icons.pedal_bike, Colors.blue, context),
+                _buildServiceButton(
+                    'Bike', Icons.pedal_bike, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Rickshaw', Icons.electric_rickshaw, Colors.blue, context),
+                _buildServiceButton(
+                    'Rickshaw', Icons.electric_rickshaw, Colors.blue, context),
                 const SizedBox(width: 12),
-                _buildServiceButton('Carpooling', Icons.group, Colors.blue, context),
+                _buildServiceButton(
+                    'Carpooling', Icons.group, Colors.blue, context),
               ],
             ),
           ),
@@ -131,7 +204,7 @@ class HomePageView extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16.0),
             child: Text(
-              'Recommendations',
+              'AI Recommendations',
               style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
             ),
           ),
@@ -155,31 +228,40 @@ class HomePageView extends StatelessWidget {
     );
   }
 
-  Widget _buildServiceButton(String label, IconData icon, Color color, BuildContext context) {
+  Widget _buildServiceButton(
+      String label, IconData icon, Color color, BuildContext context) {
     return Column(
+      mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
+        Container(
           width: 80,
           height: 80,
-          child: CustomButton(
-            text: '',
-            onPressed: () {
-              if (label == 'Carpooling') {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const CarpoolingPickDropView()),
-                );
-              } else {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => const PickDropView()),
-                );
-              }
-            },
-            backgroundColor: color,
-            borderRadius: 12,
-            child: Center(
-              child: Icon(icon, color: Colors.white, size: 40),
+          decoration: BoxDecoration(
+            color: color,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            child: InkWell(
+              borderRadius: BorderRadius.circular(12),
+              onTap: () {
+                if (label == 'Carpooling') {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const CarpoolingPickDropView()),
+                  );
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (context) => const PickDropView()),
+                  );
+                }
+              },
+              child: Center(
+                child: Icon(icon, color: Colors.white, size: 36),
+              ),
             ),
           ),
         ),
@@ -206,56 +288,6 @@ class HomePageView extends StatelessWidget {
           title,
           style: StyleRefer.poppinsRegular.copyWith(fontSize: 16),
           textAlign: TextAlign.center,
-        ),
-      ),
-    );
-  }
-
-  Widget _buildDrawer(HomePageController controller) {
-    return SizedBox(
-      width: 240,
-      child: Drawer(
-        child: Column(
-          children: [
-            const SizedBox(height: 60),
-            Obx(() => Text(
-                  controller.username.value,
-                  style: StyleRefer.poppinsBold.copyWith(fontSize: 22),
-                )),
-            const SizedBox(height: 24),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomButton(
-                onPressed: () => Get.to(() => SettingsView()),
-                backgroundColor: Colors.transparent,
-                borderColor: Colors.transparent,
-                textColor: Colors.black,
-                child: Row(
-                  children: [
-                    const Icon(Icons.settings, color: Colors.black54),
-                    const SizedBox(width: 10),
-                    Text(
-                      'Settings',
-                      style: StyleRefer.poppinsRegular.copyWith(
-                        fontSize: 16,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-            const SizedBox(height: 32),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: CustomButton(
-                text: 'Driver Mode',
-                onPressed: controller.toggleDriverMode,
-                backgroundColor: AppColors.primary,
-                textColor: Colors.white,
-              ),
-            ),
-          ],
         ),
       ),
     );

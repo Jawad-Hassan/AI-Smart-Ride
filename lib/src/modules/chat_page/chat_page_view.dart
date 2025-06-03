@@ -31,7 +31,8 @@ class GroupChatScreen extends StatelessWidget {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: Row(
                     children: [
                       Text(
@@ -65,12 +66,15 @@ class GroupChatScreen extends StatelessWidget {
                       children: [
                         Text(
                           'Your groups',
-                          style: StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
+                          style:
+                              StyleRefer.poppinsSemiBold.copyWith(fontSize: 20),
                         ),
                         const SizedBox(height: 12),
                         Obx(() {
                           return Column(
-                            children: controller.joinedGroups.map((group) => buildGroupButton(group)).toList(),
+                            children: controller.joinedGroups
+                                .map((group) => buildGroupButton(group))
+                                .toList(),
                           );
                         }),
                       ],
@@ -97,7 +101,8 @@ class GroupChatScreen extends StatelessWidget {
                       final name = group['name']!;
                       final time = group['time']!;
                       final details = group['details']!;
-                      return _buildRecommendationCard(context, name, time, details);
+                      return _buildRecommendationCard(
+                          context, name, time, details);
                     }).toList(),
                   ),
                 )),
@@ -124,7 +129,8 @@ class GroupChatScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildRecommendationCard(BuildContext context, String name, String time, String details) {
+  Widget _buildRecommendationCard(
+      BuildContext context, String name, String time, String details) {
     return Container(
       width: 160,
       margin: const EdgeInsets.only(right: 15),
@@ -160,7 +166,8 @@ class GroupChatScreen extends StatelessWidget {
                     context: context,
                     builder: (_) => AlertDialog(
                       title: Text('Group Details'),
-                      content: Text('Name: $name\nTime: $time\nDetails: $details'),
+                      content:
+                          Text('Name: $name\nTime: $time\nDetails: $details'),
                       actions: [
                         TextButton(
                           child: const Text('Close'),
@@ -171,19 +178,29 @@ class GroupChatScreen extends StatelessWidget {
                   );
                 },
               ),
-              Obx(() {
-                bool isJoined = controller.joinedGroups.any((g) => g['name'] == name);
-                return ElevatedButton(
-                  onPressed: isJoined ? null : () => controller.joinGroup(name, time, details),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: isJoined ? Colors.grey : Colors.blue,
-                    foregroundColor: Colors.white,
-                  ),
-                  child: Text(isJoined ? 'Joined' : 'Join'),
-                );
-              }),
+              const SizedBox(width: 4), // Add spacing between buttons
+              Expanded(
+                child: Obx(() {
+                  bool isJoined =
+                      controller.joinedGroups.any((g) => g['name'] == name);
+                  return ElevatedButton(
+                    onPressed: isJoined
+                        ? null
+                        : () => controller.joinGroup(name, time, details),
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: isJoined ? Colors.grey : Colors.blue,
+                      foregroundColor: Colors.white,
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
+                    ),
+                    child: FittedBox(
+                      fit: BoxFit.scaleDown,
+                      child: Text(isJoined ? 'Joined' : 'Join'),
+                    ),
+                  );
+                }),
+              ),
             ],
-          ),
+          )
         ],
       ),
     );
@@ -194,7 +211,8 @@ class GroupChatScreen extends StatelessWidget {
     return InkWell(
       onTap: () {
         int members = controller.getMemberCount(title);
-        Get.to(() => ChattingScreenView(groupName: title, memberCount: members));
+        Get.to(
+            () => ChattingScreenView(groupName: title, memberCount: members));
       },
       borderRadius: BorderRadius.circular(24),
       child: Container(

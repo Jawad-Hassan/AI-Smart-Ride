@@ -38,6 +38,20 @@ class DriverInfoView extends StatelessWidget {
             ),
 
             const SizedBox(height: 20),
+            const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 24),
+              child: Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  'Personal Details',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
 
             // Selfie upload section
             Obx(() {
@@ -67,7 +81,8 @@ class DriverInfoView extends StatelessWidget {
                           child: CircleAvatar(
                             radius: 16,
                             backgroundColor: Colors.blue,
-                            child: const Icon(Icons.close, color: Colors.white, size: 18),
+                            child: const Icon(Icons.close,
+                                color: Colors.white, size: 18),
                           ),
                         ),
                       ),
@@ -100,6 +115,31 @@ class DriverInfoView extends StatelessWidget {
                 : const SizedBox()),
 
             const SizedBox(height: 20),
+            // CNIC TextField using your custom widget
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 24),
+              child: Textfield(
+                hintKey: 'Driver CNIC Number',
+                controller: logic.nameController,
+                inputType: TextInputType.number,
+              ),
+            ),
+
+            const SizedBox(height: 20),
+
+            // Error message
+            Obx(() => logic.errorText.isNotEmpty
+                ? Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 24),
+                    child: Text(
+                      logic.errorText.value,
+                      style: const TextStyle(color: Colors.red),
+                    ),
+                  )
+                : const SizedBox()),
+
+            const SizedBox(height: 20),
+
 
             // Next Button using CustomButton
             Padding(
@@ -109,10 +149,12 @@ class DriverInfoView extends StatelessWidget {
                 onPressed: () {
                   if (logic.nameController.text.isEmpty ||
                       logic.selectedImage.value == null) {
-                    logic.errorText.value = "Please enter name and upload selfie";
+                    logic.errorText.value =
+                        "Please enter name and upload selfie";
                   } else {
                     logic.errorText.value = "";
-                    Get.to(() => DocVerificationView()); // 👈 Replace with your actual screen
+                    Get.to(() =>
+                        DocVerificationView()); // 👈 Replace with your actual screen
                   }
                 },
               ),

@@ -1,16 +1,19 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/accept_ride/accept_ride_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'active_request_logic.dart';
+import 'package:latlong2/latlong.dart';
 
 class DriverActiveRequestView extends StatelessWidget {
-  const DriverActiveRequestView({super.key});
+  // Initialize controller once here, outside build method
+  final DriverActiveRequestLogic logic = Get.put(DriverActiveRequestLogic());
+
+  DriverActiveRequestView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final logic = Get.find<DriverActiveRequestLogic>();
-
     return Scaffold(
       body: SafeArea(
         child: Obx(() {
@@ -20,14 +23,16 @@ class DriverActiveRequestView extends StatelessWidget {
               children: [
                 Stack(
                   children: [
-                    Image.asset('assets/images/top.png',
-                        width: double.infinity, height: 200, fit: BoxFit.cover),
+                    Image.asset(
+                      'assets/images/top.png',
+                      width: double.infinity,
+                      height: 200,
+                      fit: BoxFit.cover,
+                    ),
                     Positioned(
                       top: 16,
-                      // left: 10,
                       child: GestureDetector(
                         child: Container(
-
                           decoration: BoxDecoration(
                             color: Colors.black.withOpacity(0.1),
                             shape: BoxShape.circle,
@@ -50,9 +55,10 @@ class DriverActiveRequestView extends StatelessWidget {
                           color: Colors.white,
                           shadows: [
                             Shadow(
-                                blurRadius: 4,
-                                color: Colors.black26,
-                                offset: Offset(1, 1))
+                              blurRadius: 4,
+                              color: Colors.black26,
+                              offset: Offset(1, 1),
+                            )
                           ],
                         ),
                       ),
@@ -72,9 +78,10 @@ class DriverActiveRequestView extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             boxShadow: [
                               BoxShadow(
-                                  color: Colors.grey.withOpacity(0.2),
-                                  blurRadius: 6,
-                                  offset: Offset(0, 3)),
+                                color: Colors.grey.withOpacity(0.2),
+                                blurRadius: 6,
+                                offset: Offset(0, 3),
+                              ),
                             ],
                           ),
                           child: Column(
@@ -89,16 +96,22 @@ class DriverActiveRequestView extends StatelessWidget {
                                 child: Column(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Text('${ride.route}',
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            fontWeight: FontWeight.w600)),
+                                    Text(
+                                      '${ride.route}',
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w600,
+                                      ),
+                                    ),
                                     SizedBox(height: 4),
-                                    Text('Rs. ${ride.fare}',
-                                        style: TextStyle(
-                                            fontSize: 13,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.blue)),
+                                    Text(
+                                      'Rs. ${ride.fare}',
+                                      style: TextStyle(
+                                        fontSize: 13,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
                                   ],
                                 ),
                               ),
@@ -106,18 +119,25 @@ class DriverActiveRequestView extends StatelessWidget {
                           ),
                         ),
                       SizedBox(height: 24),
-                      Text('Offer your price',
-                          style: TextStyle(
-                              fontSize: 15, fontWeight: FontWeight.w500)),
+                      Text(
+                        'Offer your price',
+                        style: TextStyle(
+                          fontSize: 15,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                       SizedBox(height: 10),
                       Textfield(
-                          hintKey: 'Rs.',
-                          controller: logic.priceController,
-                          inputType: TextInputType.number),
+                        hintKey: 'Rs.',
+                        controller: logic.priceController,
+                        inputType: TextInputType.number,
+                      ),
                       SizedBox(height: 20),
-                      CustomButton(
-                          text: 'Next Step',
-                          onPressed: logic.onNextStepPressed),
+                      ElevatedButton(
+  onPressed: logic.onNextStepPressed,
+  child: Text('Next Step'),
+),
+
                     ],
                   ),
                 ),

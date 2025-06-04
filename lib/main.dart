@@ -70,7 +70,7 @@ class MyApp extends StatelessWidget {
           GetPage(name: '/driver-home', page: () => DriverHomePageView()),
           GetPage(
             name: '/active-request',
-            page: () => const DriverActiveRequestView(),
+            page: () => DriverActiveRequestView(),
             binding: BindingsBuilder(() {
               Get.lazyPut(() => DriverActiveRequestLogic());
             }),

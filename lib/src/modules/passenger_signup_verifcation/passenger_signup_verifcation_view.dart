@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/src/modules/driverSignUpverification/driver_signupVerification_logic.dart';
+
 import 'package:flutter_application_1/src/modules/passenger_signup_verifcation/passenger_signup_verifcation_logic.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';

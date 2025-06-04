@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_application_1/src/modules/driver_Signup/driver_signup_logic.dart';
+
 import 'package:flutter_application_1/src/modules/passenger-signup/passenger_signup_logic.dart';
-import 'package:flutter_application_1/src/modules/signup_page/signup_logic.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';

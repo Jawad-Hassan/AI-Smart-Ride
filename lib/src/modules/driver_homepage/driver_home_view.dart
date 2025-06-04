@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
+import 'package:flutter_application_1/src/modules/setting_screen/setting_screen_view.dart';
 
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
@@ -65,18 +67,34 @@ class DriverHomePageView extends StatelessWidget {
                 //   },
                 // ),
                 Divider(),
-                Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                  child: CustomButton(
-                    text: 'Passenger Mode',
-                    backgroundColor: Colors.blue,
-                    onPressed: () {
-                      // TODO: Add logout logic here
-                      Navigator.pop(context);
-                    },
-                  ),
-                ),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  child: CustomButton(
+    text: 'Settings',
+    backgroundColor: Colors.blue,
+    onPressed: () {
+      Navigator.pop(context); // Close the drawer
+      Future.delayed(const Duration(milliseconds: 250), () {
+        Get.to(() => SettingsView()); // Navigate to settings
+      });
+    },
+  ),
+),
+Padding(
+  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  child: CustomButton(
+    text: 'Passenger Mode',
+    backgroundColor: Colors.blue,
+   onPressed: () {
+  Navigator.pop(context); // Closes the Drawer if it's open
+  Future.delayed(const Duration(milliseconds: 250), () {
+    Get.offAll(() => const HomePageView());
+  });
+},
+
+  ),
+),
+
               ],
             ),
           ),

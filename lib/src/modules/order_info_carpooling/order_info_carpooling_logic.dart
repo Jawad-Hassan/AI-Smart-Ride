@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter_application_1/src/modules/message_driver_screen/message_driver_view.dart';
 import 'package:flutter_application_1/src/modules/ride_share_carpooling/ride_share_carpooling_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
@@ -51,7 +52,7 @@ class DriverTrackingCarpoolingController extends GetxController {
   }
 
   void messageDriver() {
-    Get.snackbar("Message Sent", "You have messaged the driver.");
+    Get.to(() => DriverChattingScreenView());
   }
 
   void callDriver() {

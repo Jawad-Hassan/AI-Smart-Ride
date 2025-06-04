@@ -7,6 +7,7 @@ import 'package:flutter_application_1/src/modules/carpooling_pick_drop/carpoolin
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_view.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_bottom_navbar.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
+import 'package:flutter_application_1/src/modules/driver_homepage/driver_home_view.dart';
 import 'package:flutter_application_1/src/modules/pick_drop/pick_drop_view.dart';
 import 'package:flutter_application_1/src/modules/setting_screen/setting_screen_view.dart';
 
@@ -87,17 +88,19 @@ class HomePageView extends StatelessWidget {
                     ),
                   ),
                   Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-                    child: CustomButton(
-                      text: 'Driver Mode',
-                      backgroundColor: Colors.blue,
-                      onPressed: () {
-                        Navigator.pop(context);
-                        controller.toggleDriverMode(); // Optional
-                      },
-                    ),
-                  ),
+  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+  child: CustomButton(
+    text: 'Driver Mode',
+    backgroundColor: Colors.blue,
+    onPressed: () {
+      Navigator.pop(context); // Close the drawer
+      Future.delayed(const Duration(milliseconds: 250), () {
+        Get.offAll(() => DriverHomePageView());
+      });
+    },
+  ),
+),
+
                 ],
               ),
             ),

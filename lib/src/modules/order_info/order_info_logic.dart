@@ -49,7 +49,6 @@ class DriverTrackingController extends GetxController {
   }
 
   void messageDriver() {
-    Get.snackbar("Message", "Message sent to the driver.");
 
     Get.to(() => DriverChattingScreenView());
   }

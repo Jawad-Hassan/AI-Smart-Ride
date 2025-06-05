@@ -31,7 +31,10 @@ class DriverHomeLogic extends GetxController {
           distance: '1.5',
           route: 'Gulberg to township',
           fare: '300'),
-
     ]);
+  }
+
+  void rejectRide(Ride ride) {
+    rideList.remove(ride);
   }
 }

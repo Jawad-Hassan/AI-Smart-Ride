@@ -1,24 +1,20 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/setting_screen/setting_screen_view.dart';
-
-import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_fonts.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_images.dart';
-
 import '../driver_histroypage/driver_history_view.dart';
 import 'driver_home_logic.dart';
 
 class DriverHomePageView extends StatelessWidget {
   final logic = Get.put(DriverHomeLogic());
-
   final RxInt _selectedIndex = 0.obs;
 
   final List<Widget> _pages = [
-    HomePageBody(), // Home content
+    HomePageBody(),
     DriverHistoryPage(),
-    // DriverActiveRequestView(),
   ];
 
   void _onItemTapped(int index) {
@@ -58,43 +54,33 @@ class DriverHomePageView extends StatelessWidget {
                     Navigator.pop(context);
                   },
                 ),
-                // ListTile(
-                //   leading: Icon(Icons.chat_bubble_outline),
-                //   title: Text('Active Request'),
-                //   onTap: () {
-                //     _onItemTapped(2);
-                //     Navigator.pop(context);
-                //   },
-                // ),
                 Divider(),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  child: CustomButton(
-    text: 'Settings',
-    backgroundColor: Colors.blue,
-    onPressed: () {
-      Navigator.pop(context); // Close the drawer
-      Future.delayed(const Duration(milliseconds: 250), () {
-        Get.to(() => SettingsView()); // Navigate to settings
-      });
-    },
-  ),
-),
-Padding(
-  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-  child: CustomButton(
-    text: 'Passenger Mode',
-    backgroundColor: Colors.blue,
-   onPressed: () {
-  Navigator.pop(context); // Closes the Drawer if it's open
-  Future.delayed(const Duration(milliseconds: 250), () {
-    Get.offAll(() => const HomePageView());
-  });
-},
-
-  ),
-),
-
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: CustomButton(
+                    text: 'Settings',
+                    backgroundColor: Colors.blue,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Future.delayed(const Duration(milliseconds: 250), () {
+                        Get.to(() => SettingsView());
+                      });
+                    },
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  child: CustomButton(
+                    text: 'Passenger Mode',
+                    backgroundColor: Colors.blue,
+                    onPressed: () {
+                      Navigator.pop(context);
+                      Future.delayed(const Duration(milliseconds: 250), () {
+                        Get.offAll(() => const HomePageView());
+                      });
+                    },
+                  ),
+                ),
               ],
             ),
           ),
@@ -107,22 +93,14 @@ Padding(
             items: [
               BottomNavigationBarItem(
                 icon: Icon(Icons.home,
-                    color:
-                        _selectedIndex.value == 0 ? Colors.blue : Colors.grey),
+                    color: _selectedIndex.value == 0 ? Colors.blue : Colors.grey),
                 label: 'Home',
               ),
               BottomNavigationBarItem(
                 icon: Icon(Icons.list_alt,
-                    color:
-                        _selectedIndex.value == 1 ? Colors.blue : Colors.grey),
+                    color: _selectedIndex.value == 1 ? Colors.blue : Colors.grey),
                 label: 'History',
               ),
-              // BottomNavigationBarItem(
-              //   icon: Icon(Icons.chat_bubble_outline,
-              //       color:
-              //           _selectedIndex.value == 2 ? Colors.blue : Colors.grey),
-              //   label: 'Active Request',
-              // ),
             ],
           ),
         ));
@@ -138,7 +116,6 @@ class HomePageBody extends StatelessWidget {
       child: Obx(() => Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Top image with Home text and aligned Drawer button
               Stack(
                 children: [
                   SizedBox(
@@ -177,8 +154,6 @@ class HomePageBody extends StatelessWidget {
                   ),
                 ],
               ),
-
-              // Scrollable ride buttons
               Expanded(
                 child: SingleChildScrollView(
                   physics: BouncingScrollPhysics(),
@@ -188,9 +163,7 @@ class HomePageBody extends StatelessWidget {
                       return Padding(
                         padding: const EdgeInsets.only(bottom: 12),
                         child: CustomButton(
-                          onPressed: () {
-                            // Optional: handle tap on whole card
-                          },
+                          onPressed: () {},
                           backgroundColor: Colors.white,
                           borderColor: Colors.grey.shade300,
                           textColor: Colors.black,
@@ -202,10 +175,8 @@ class HomePageBody extends StatelessWidget {
                                 mainAxisAlignment:
                                     MainAxisAlignment.spaceBetween,
                                 children: [
-                                  // Ride Info
                                   Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
+                                    crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
                                         ride.name,
@@ -219,7 +190,6 @@ class HomePageBody extends StatelessWidget {
                                       Text(ride.route),
                                     ],
                                   ),
-                                  // Fare Box
                                   Container(
                                     padding: EdgeInsets.symmetric(
                                         horizontal: 12, vertical: 6),
@@ -238,7 +208,6 @@ class HomePageBody extends StatelessWidget {
                                 ],
                               ),
                               SizedBox(height: 12),
-                              // Accept & Join buttons row
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.end,
                                 children: [
@@ -251,19 +220,18 @@ class HomePageBody extends StatelessWidget {
                                     borderRadius: 8,
                                     onPressed: () {
                                       Get.toNamed('/active-request', arguments: ride);
-
                                     },
                                   ),
                                   SizedBox(width: 12),
                                   CustomButton(
                                     width: 100,
                                     height: 36,
-                                    text: 'reject',
+                                    text: 'Reject',
                                     backgroundColor: Colors.red,
                                     fontSize: 14,
                                     borderRadius: 8,
                                     onPressed: () {
-                                      // TODO: Join action
+                                      logic.rejectRide(ride);
                                     },
                                   ),
                                 ],

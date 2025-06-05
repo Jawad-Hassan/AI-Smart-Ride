@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/Home_Page/homepage_view.dart';
 import 'package:flutter_application_1/src/modules/chat_page/chat_page_view.dart';
 import 'package:flutter_application_1/src/modules/driverSignUpverification/driver_signupVerification_view.dart';
-import 'package:flutter_application_1/src/modules/driver_ETA/driver_ETA_view.dart';
 import 'package:flutter_application_1/src/modules/driver_Signup/driver_signup_view.dart';
 import 'package:flutter_application_1/src/modules/driver_activerequestpage/active_request_logic.dart';
 import 'package:flutter_application_1/src/modules/driver_activerequestpage/active_request_view.dart';

@@ -50,9 +50,9 @@ void handleSearch() {
     final pickupAddress = pickupController.text;
     final dropoffAddress = dropoffController.text;
     final fare = fareController.text;
-    final passengers = passengerController.text;
-    final date = dateController.text;
-    final time = timeController.text;
+    // final passengers = passengerController.text;
+    // final date = dateController.text;
+    // final time = timeController.text;
 
     pickupLatLng ??= const LatLng(33.6844, 73.0479); // Example fallback
     dropoffLatLng ??= const LatLng(24.8607, 67.0011); // Example fallback

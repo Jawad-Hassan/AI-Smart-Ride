@@ -11,7 +11,7 @@ class RideEndView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final LatLng yourLocation = logic.yourLocation;
+    //final LatLng yourLocation = logic.yourLocation;
     final LatLng destinationLocation = logic.destinationLocation;
     final String pickup = logic.pickup;
     final String dropoff = logic.dropoff;

@@ -1,6 +1,5 @@
 // group_posting_view.dart
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/chat_page/chat_page_view.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:get/get.dart';
 import 'group_posting_logic.dart';

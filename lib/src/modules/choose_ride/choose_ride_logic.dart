@@ -1,6 +1,4 @@
 import 'package:flutter_application_1/src/modules/driver_ETA/driver_ETA_view.dart';
-import 'package:flutter_application_1/src/modules/order_info/order_info_logic.dart';
-import 'package:flutter_application_1/src/modules/order_info/order_info_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 

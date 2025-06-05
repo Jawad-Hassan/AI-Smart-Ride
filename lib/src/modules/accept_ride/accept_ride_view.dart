@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_application_1/src/modules/MessagePassenger/message_passenger_view.dart';
 import 'package:flutter_application_1/src/modules/accept_ride/accept_ride_logic.dart';
 import 'package:flutter_application_1/src/modules/driver_homepage/driver_home_view.dart';
-import 'package:flutter_application_1/src/modules/ride_start/ride_start_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 import 'package:flutter_map/flutter_map.dart';

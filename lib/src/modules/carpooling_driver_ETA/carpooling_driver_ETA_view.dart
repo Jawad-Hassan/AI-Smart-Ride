@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/driver_ETA/driver_ETA_logic.dart';
+import 'package:flutter_application_1/src/modules/carpooling_driver_ETA/carpooling_driver_ETA_logic.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-class DriverETAView extends StatelessWidget {
+class CarpoolingDriverETAView extends StatelessWidget {
   final Map<String, dynamic> driverInfo;
   final LatLng driverLocation;
   final LatLng pickupLocation;
@@ -13,7 +13,7 @@ class DriverETAView extends StatelessWidget {
   final String pickupAddress;
   final String dropoffAddress;
 
-  const DriverETAView({
+  const CarpoolingDriverETAView({
     Key? key,
     required this.driverInfo,
     required this.driverLocation,
@@ -25,7 +25,7 @@ class DriverETAView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DriverETAController(
+    final controller = Get.put(CarpoolingDriverETAController(
       driverInfo: driverInfo,
       driverLocation: driverLocation,
       pickupLocation: pickupLocation,

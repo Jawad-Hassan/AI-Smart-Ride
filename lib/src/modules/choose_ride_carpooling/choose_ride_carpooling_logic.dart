@@ -1,8 +1,7 @@
-import 'package:flutter_application_1/src/modules/order_info_carpooling/order_info_carpooling_logic.dart';
-import 'package:flutter_application_1/src/modules/order_info_carpooling/order_info_carpooling_view.dart';
+
+import 'package:flutter_application_1/src/modules/carpooling_driver_ETA/carpooling_driver_ETA_view.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
-
 
 class ChooseRideCarpoolingController extends GetxController {
   var isLoading = true.obs;
@@ -32,11 +31,16 @@ class ChooseRideCarpoolingController extends GetxController {
     String pickupAddress,
     String dropoffAddress,
   ) {
-    if (!Get.isRegistered<DriverTrackingCarpoolingController>()) {
-      Get.put(DriverTrackingCarpoolingController());
-    }
-    Get.to(() => DriverTrackingCarpoolingView(
+    // For demo, driverLocation = some offset from pickupLocation (can be replaced by actual GPS data)
+    final driverLocation = LatLng(
+      pickupLocation.latitude + 0.001, 
+      pickupLocation.longitude + 0.001,
+    );
+
+    // Navigate to CarpoolingDriverETAView
+    Get.to(() => CarpoolingDriverETAView(
       driverInfo: offer,
+      driverLocation: driverLocation,
       pickupLocation: pickupLocation,
       dropoffLocation: dropoffLocation,
       pickupAddress: pickupAddress,

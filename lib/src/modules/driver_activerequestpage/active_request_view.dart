@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/accept_ride/accept_ride_view.dart';
 import 'package:get/get.dart';
 import 'package:flutter_application_1/src/modules/customwidget/custom_button.dart';
 import 'package:flutter_application_1/src/modules/customwidget/textfields.dart';
 import 'active_request_logic.dart';
-import 'package:latlong2/latlong.dart';
+
 
 class DriverActiveRequestView extends StatelessWidget {
   // Initialize controller once here, outside build method

@@ -1,22 +1,22 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_1/src/modules/driver_ETA/driver_ETA_logic.dart';
+import 'package:flutter_application_1/src/modules/carpooling_driver_arrived/carpooling_driver_arrived_logic.dart';
+import 'package:flutter_application_1/src/modules/choose_ride_carpooling/choose_ride_carpooling_view.dart';
+import 'package:flutter_application_1/src/modules/order_info_carpooling/order_info_carpooling_view.dart';
 import 'package:flutter_application_1/src/modules/utlis/app_colors.dart';
 import 'package:flutter_map/flutter_map.dart';
 import 'package:get/get.dart';
 import 'package:latlong2/latlong.dart';
 
-class DriverETAView extends StatelessWidget {
+class CarpoolingDriverArrivedView extends StatelessWidget {
   final Map<String, dynamic> driverInfo;
-  final LatLng driverLocation;
   final LatLng pickupLocation;
   final LatLng dropoffLocation;
   final String pickupAddress;
   final String dropoffAddress;
 
-  const DriverETAView({
+  const CarpoolingDriverArrivedView({
     Key? key,
     required this.driverInfo,
-    required this.driverLocation,
     required this.pickupLocation,
     required this.dropoffLocation,
     required this.pickupAddress,
@@ -25,9 +25,8 @@ class DriverETAView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(DriverETAController(
+    final controller = Get.put(CarpoolingDriverArrivedController(
       driverInfo: driverInfo,
-      driverLocation: driverLocation,
       pickupLocation: pickupLocation,
       dropoffLocation: dropoffLocation,
       pickupAddress: pickupAddress,
@@ -47,25 +46,10 @@ class DriverETAView extends StatelessWidget {
               MarkerLayer(
                 markers: [
                   Marker(
-                    point: driverLocation,
-                    width: 50,
-                    height: 50,
-                    child: const Icon(Icons.local_taxi, color: Colors.orange, size: 36),
-                  ),
-                  Marker(
                     point: pickupLocation,
                     width: 50,
                     height: 50,
-                    child: const Icon(Icons.person_pin_circle, color: Colors.green, size: 36),
-                  ),
-                ],
-              ),
-              PolylineLayer(
-                polylines: [
-                  Polyline(
-                    points: [driverLocation, pickupLocation],
-                    strokeWidth: 4.0,
-                    color: Colors.blue,
+                    child: const Icon(Icons.location_pin, color: Colors.green, size: 36),
                   ),
                 ],
               ),
@@ -83,7 +67,7 @@ class DriverETAView extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  const Text("Driver Information", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const Text("Driver Arrived", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
                   Row(
                     children: [
@@ -117,14 +101,15 @@ class DriverETAView extends StatelessWidget {
                           ),
                         ],
                       ),
-                      // Obx(() => Text(
-                      //   "${controller.secondsLeft.value}s",
-                      //   style: const TextStyle(fontSize: 18, color: Colors.red),
-                      // )),
+                      Obx(() {
+                        final minutes = (controller.secondsLeft.value ~/ 60).toString().padLeft(2, '0');
+                        final seconds = (controller.secondsLeft.value % 60).toString().padLeft(2, '0');
+                        return Text("$minutes:$seconds", style: const TextStyle(fontSize: 18, color: Colors.red));
+                      }),
                     ],
                   ),
                   const SizedBox(height: 16),
-                  const Text("Order Information", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+                  const Text("Pickup Details", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
                   const SizedBox(height: 10),
                   Container(
                     padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
@@ -154,19 +139,49 @@ class DriverETAView extends StatelessWidget {
                     ),
                   ),
                   const SizedBox(height: 16),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: ElevatedButton(
-                      onPressed: () => Get.back(),
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: Colors.red,
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      // Cancel Button
+                     ElevatedButton(
+  onPressed: () {
+                          Get.to(() => ChooseRideCarpoolingView(
+                                pickupLocation: pickupLocation,
+                                dropoffLocation: dropoffLocation,
+                                pickupAddress: pickupAddress,
+                                dropoffAddress: dropoffAddress,
+                              ));
+                        },
+  style: ElevatedButton.styleFrom(
+    backgroundColor: Colors.red,
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+  ),
+  child: const Padding(
+    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+    child: Text("Cancel", style: TextStyle(color: Colors.white)),
+  ),
+),
+                      // OK Coming Button
+                      ElevatedButton(
+                        onPressed: () {
+                          Get.to(() => DriverTrackingCarpoolingView(
+                                driverInfo: driverInfo,
+                                pickupLocation: pickupLocation,
+                                dropoffLocation: dropoffLocation,
+                                pickupAddress: pickupAddress,
+                                dropoffAddress: dropoffAddress,
+                              ));
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: AppColors.primary,
+                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                        ),
+                        child: const Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
+                          child: Text("OK, Coming", style: TextStyle(color: Colors.white)),
+                        ),
                       ),
-                      child: const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                        child: Text("Cancel", style: TextStyle(color: Colors.white)),
-                      ),
-                    ),
+                    ],
                   ),
                 ],
               ),
